@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>859134250252-v65sd1kv4dvujh8i6f1dviedhrr4qcvs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.859134250252-v65sd1kv4dvujh8i6f1dviedhrr4qcvs</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBPv9N5ccmppXKWH-vmOlBP2nxgLj2iUyc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>859134250252</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>markosian.FitYou</string>
+	<key>PROJECT_ID</key>
+	<string>fitapp-c5278</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fitapp-c5278.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:859134250252:ios:d5f2bcc205d3323cca4d29</string>
+</dict>
+</plist>
