@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import SwiftUI
+import FirebaseFirestore
+import Firebase
 
 class WODView: UIViewController {
     
@@ -16,12 +17,12 @@ class WODView: UIViewController {
     private var setsAndTime: CustomLabel {
         let label = CustomLabel()
         label.font = UIFont(name: "Avenir-Heavy", size: 20)
-        if wod?.sets == nil {
-            if let time = wod?.time {
-                label.text = "Time: \(time)"
+        if wodDict["priority"] as! String == "Time" {
+            if let time = wodDict["setsORtime"] {
+                label.text = "Time: \(time) min."
             }
         } else {
-            if let sets = wod?.sets {
+            if let sets = wodDict["setsORtime"] {
                 label.text = "Sets: \(sets)"
             }
         }
@@ -34,11 +35,16 @@ class WODView: UIViewController {
     private lazy var third = CustomLabel()
     private lazy var addResultBtn = UIButton()
     
-    var wod: WODModel? = nil
+//    var wod: WODModel? = nil
+    var wodDict: [String: Any] = [:]
     var exercisesForTable: [String]? = nil
+    var repetitionsForTable: [Int]? = nil
+    var docID: String = ""
     
     let stack = UIStackView()
     let mainStack = UIStackView()
+    
+    let db = Firestore.firestore()
 
     
     override func loadView() {
@@ -65,22 +71,26 @@ class WODView: UIViewController {
         backBtn.tintColor = .black
         backBtn.addTarget(self, action: #selector(backAction), for: .touchUpInside)
 
-        likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+        isLiked()
         likeBtn.tintColor = .red
         likeBtn.contentMode = .scaleAspectFit
+        likeBtn.addTarget(self, action: #selector(liked), for: .touchUpInside)
         
-        if let newwod = wod {
-            header.setUpName(newwod.name)
-            header.setUpPriority(newwod.priority)
-            exercisesForTable = newwod.exercises
-        }
+        header.setUpName(wodDict["name"] as! String)
+        header.setUpPriority(wodDict["priority"] as! String)
+        exercisesForTable = wodDict["exercises"] as? [String]
+        repetitionsForTable = wodDict["repetitions"] as? [Int]
+//            header.setUpName(newwod.name)
+//            header.setUpPriority(newwod.priority)
+//            exercisesForTable = newwod.exercises
+//            repetitionsForTable = newwod.repetitions
 
     }
     
     private func setUpStacks() {
         exercisesTable.dataSource = self
         exercisesTable.delegate = self
-        exercisesTable.register(ExerciseCell.self, forCellReuseIdentifier: "Reuse")
+        exercisesTable.register(CustomTableCell.self, forCellReuseIdentifier: "Reuse")
         exercisesTable.backgroundColor = .white
         exercisesTable.showsVerticalScrollIndicator = false
         
@@ -148,7 +158,7 @@ class WODView: UIViewController {
             stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
         
-        if let exercisesNumber = wod?.exercises.count {
+        if let exercisesNumber = exercisesForTable?.count {
             if exercisesNumber > 5 {
                 let newHeight = exercisesNumber * 35
                 exercisesTable.heightAnchor.constraint(equalToConstant: CGFloat(newHeight)).isActive = true
@@ -159,16 +169,47 @@ class WODView: UIViewController {
             exercisesTable.heightAnchor.constraint(equalToConstant: 250).isActive = true
         }
         
-        if view.frame.height < 600 {
+        if view.frame.height < 700 {
             header.heightAnchor.constraint(equalToConstant: 140).isActive = true
         } else {
             header.heightAnchor.constraint(equalToConstant: 200).isActive = true
         }
 
     }
+    
+    func isLiked() {
+        if let likes = wodDict["whoLiked"] as? [String] {
+            if likes.count == 0 {
+                likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            }
+            for userID in likes {
+                if userID == Server.instance.userID {
+                    likeBtn.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+                } else {
+                    likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+                }
+            }
+        }
+    }
 
     @objc private func backAction() {
         dismiss(animated: true)
+    }
+    
+    @objc private func liked() {
+        
+        if likeBtn.currentBackgroundImage == UIImage(systemName: "heart") {
+            db.collection("WODs").document(docID).updateData([
+                "whoLiked" : FieldValue.arrayUnion([Server.instance.userID])
+            ])
+            likeBtn.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            db.collection("WODs").document(docID).updateData([
+                "whoLiked" : FieldValue.arrayRemove([Server.instance.userID])
+            ])
+            likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+        }
+        
     }
 
 }
@@ -183,13 +224,13 @@ extension WODView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "Reuse") as? ExerciseCell {
-            if let table = exercisesForTable {
-                cell.setName(table[indexPath.row])
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "Reuse") as? CustomTableCell {
+            if let table = exercisesForTable, let rep = repetitionsForTable {
+                cell.setNameAndRep(table[indexPath.row], repetitions: rep[indexPath.row])
                 return cell
             }
         }
-        return ExerciseCell()
+        return CustomTableCell()
     }
     
 }

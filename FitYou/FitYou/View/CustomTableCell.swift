@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExerciseCell: UITableViewCell {
+class CustomTableCell: UITableViewCell {
     
     private lazy var exerciseName = CustomLabel()
 
@@ -32,8 +32,8 @@ class ExerciseCell: UITableViewCell {
         exerciseName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
     }
 
-    func setName(_ name: String) {
-        exerciseName.text = name
+    func setNameAndRep(_ name: String, repetitions: Int) {
+        exerciseName.text = "\(repetitions) \(name)"
     }
     
 }

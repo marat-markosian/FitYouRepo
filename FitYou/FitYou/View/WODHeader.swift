@@ -9,7 +9,7 @@ import UIKit
 
 class WODHeader: UIView {
     
-    private lazy var wodLabel = CustomLabel()
+    lazy var wodLabel = CustomLabel()
     private lazy var name = CustomLabel()
     private lazy var priority = CustomLabel()
     

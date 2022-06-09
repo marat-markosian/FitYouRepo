@@ -26,9 +26,14 @@
 		BA6B9C6E284105FC00E17A49 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C6D284105FC00E17A49 /* WorkoutCell.swift */; };
 		BA6B9C70284126FA00E17A49 /* WODView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C6F284126FA00E17A49 /* WODView.swift */; };
 		BA6B9C722841519900E17A49 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C712841519900E17A49 /* CustomLabel.swift */; };
-		BA6B9C742841615800E17A49 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C732841615800E17A49 /* ExerciseCell.swift */; };
+		BA6B9C742841615800E17A49 /* CustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C732841615800E17A49 /* CustomTableCell.swift */; };
 		BA6B9C76284219E800E17A49 /* WODModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C75284219E800E17A49 /* WODModel.swift */; };
 		BA6B9C7828421B9800E17A49 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C7728421B9800E17A49 /* Server.swift */; };
+		BA8A66CE2848E52000248EEF /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A66CD2848E51F00248EEF /* ProfileVC.swift */; };
+		BA8BB1D028511E5600FD5268 /* LikedWODsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BB1CF28511E5600FD5268 /* LikedWODsVC.swift */; };
+		BA8C65E12843D8D700446FFC /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C65E02843D8D700446FFC /* LogInVC.swift */; };
+		BA8C65E32843DB2A00446FFC /* CustomTxtField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C65E22843DB2A00446FFC /* CustomTxtField.swift */; };
+		BA8C65E52844B8A300446FFC /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C65E42844B8A300446FFC /* SignUpVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,9 +74,14 @@
 		BA6B9C6D284105FC00E17A49 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
 		BA6B9C6F284126FA00E17A49 /* WODView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WODView.swift; sourceTree = "<group>"; };
 		BA6B9C712841519900E17A49 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
-		BA6B9C732841615800E17A49 /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
+		BA6B9C732841615800E17A49 /* CustomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableCell.swift; sourceTree = "<group>"; };
 		BA6B9C75284219E800E17A49 /* WODModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WODModel.swift; sourceTree = "<group>"; };
 		BA6B9C7728421B9800E17A49 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		BA8A66CD2848E51F00248EEF /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		BA8BB1CF28511E5600FD5268 /* LikedWODsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedWODsVC.swift; sourceTree = "<group>"; };
+		BA8C65E02843D8D700446FFC /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
+		BA8C65E22843DB2A00446FFC /* CustomTxtField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTxtField.swift; sourceTree = "<group>"; };
+		BA8C65E42844B8A300446FFC /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +169,7 @@
 		BA6B9C642840C31B00E17A49 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BA8C65DF2843D8B000446FFC /* MenuVCs */,
 				BA6B9C2C283FE7E700E17A49 /* MainVC.swift */,
 				BA6B9C6F284126FA00E17A49 /* WODView.swift */,
 				BA6B9C6B2840E9B900E17A49 /* WorkoutsVC.swift */,
@@ -173,7 +184,8 @@
 				BA6B9C692840D78D00E17A49 /* SectionButton.swift */,
 				BA6B9C6D284105FC00E17A49 /* WorkoutCell.swift */,
 				BA6B9C712841519900E17A49 /* CustomLabel.swift */,
-				BA6B9C732841615800E17A49 /* ExerciseCell.swift */,
+				BA6B9C732841615800E17A49 /* CustomTableCell.swift */,
+				BA8C65E22843DB2A00446FFC /* CustomTxtField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,6 +197,17 @@
 				BA6B9C7728421B9800E17A49 /* Server.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BA8C65DF2843D8B000446FFC /* MenuVCs */ = {
+			isa = PBXGroup;
+			children = (
+				BA8C65E02843D8D700446FFC /* LogInVC.swift */,
+				BA8C65E42844B8A300446FFC /* SignUpVC.swift */,
+				BA8A66CD2848E51F00248EEF /* ProfileVC.swift */,
+				BA8BB1CF28511E5600FD5268 /* LikedWODsVC.swift */,
+			);
+			path = MenuVCs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,18 +349,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA8C65E12843D8D700446FFC /* LogInVC.swift in Sources */,
 				BA6B9C76284219E800E17A49 /* WODModel.swift in Sources */,
 				BA6B9C6C2840E9B900E17A49 /* WorkoutsVC.swift in Sources */,
 				BA6B9C722841519900E17A49 /* CustomLabel.swift in Sources */,
 				BA6B9C682840C3AB00E17A49 /* WODHeader.swift in Sources */,
+				BA8BB1D028511E5600FD5268 /* LikedWODsVC.swift in Sources */,
 				BA6B9C70284126FA00E17A49 /* WODView.swift in Sources */,
 				BA6B9C2D283FE7E700E17A49 /* MainVC.swift in Sources */,
 				BA6B9C29283FE7E700E17A49 /* AppDelegate.swift in Sources */,
+				BA8C65E52844B8A300446FFC /* SignUpVC.swift in Sources */,
 				BA6B9C6A2840D78D00E17A49 /* SectionButton.swift in Sources */,
-				BA6B9C742841615800E17A49 /* ExerciseCell.swift in Sources */,
+				BA6B9C742841615800E17A49 /* CustomTableCell.swift in Sources */,
 				BA6B9C2B283FE7E700E17A49 /* SceneDelegate.swift in Sources */,
 				BA6B9C33283FE7E700E17A49 /* FitYou.xcdatamodeld in Sources */,
+				BA8A66CE2848E52000248EEF /* ProfileVC.swift in Sources */,
 				BA6B9C7828421B9800E17A49 /* Server.swift in Sources */,
+				BA8C65E32843DB2A00446FFC /* CustomTxtField.swift in Sources */,
 				BA6B9C6E284105FC00E17A49 /* WorkoutCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,7 +534,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KC6374BX74;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FitYou/Info.plist;
@@ -519,7 +547,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.3;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = markosian.FitYou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -534,7 +562,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KC6374BX74;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FitYou/Info.plist;
@@ -547,7 +575,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.3;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = markosian.FitYou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -12,7 +12,7 @@ struct WODModel {
     let name: String
     let priority: String
     let exercises: [String]
-    let time: Int?
-    let sets: Int?
+    let repetitions: [Int]
+    let setsORtime: Int
     
 }

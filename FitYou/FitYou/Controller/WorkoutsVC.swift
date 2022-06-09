@@ -6,15 +6,19 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseCore
 
 class WorkoutsVC: UIViewController {
     
-    private lazy var header = WODHeader()
+    lazy var header = WODHeader()
     private lazy var backBtn = UIButton()
-    private lazy var picker = UISegmentedControl(items: ["All", "Time pr.", "Task pr."])
-    private lazy var workoutsCollection = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
+    lazy var picker = UISegmentedControl(items: ["All", "Time pr.", "Task pr."])
+    lazy var workoutsCollection = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
     
-    var wods = Server.instance.wods
+    var wods = Server.instance.newwods
+    var docIDs = Server.instance.wodsID
+    let data = Firestore.firestore()
 
     override func loadView() {
         super.loadView()
@@ -93,34 +97,45 @@ class WorkoutsVC: UIViewController {
     
     @objc private func prioritySets(_ sender: UISegmentedControl) {
         let selectedIndex = sender.selectedSegmentIndex + 1
-        var newWods = [WODModel]()
+        var newWods: [[String: Any]] = []
+        var newIDs: [String] = []
         switch selectedIndex {
         case 1:
-            wods = Server.instance.wods
+            wods = Server.instance.newwods
+            docIDs = Server.instance.wodsID
             workoutsCollection.reloadData()
         case 2:
-            wods = Server.instance.wods
-            for wod in wods {
-                if wod.priority == "Time" {
-                    newWods.append(wod)
+            wods = Server.instance.newwods
+            docIDs = Server.instance.wodsID
+            for index in 0 ..< wods.count {
+                if wods[index]["priority"] as! String == "Time" {
+                    newWods.append(wods[index])
+                    newIDs.append(docIDs[index])
                 }
             }
             wods = newWods
+            docIDs = newIDs
             workoutsCollection.reloadData()
         case 3:
-            wods = Server.instance.wods
-            for wod in wods {
-                if wod.priority == "Task" {
-                    newWods.append(wod)
+            wods = Server.instance.newwods
+            docIDs = Server.instance.wodsID
+            for index in 0 ..< wods.count {
+                if wods[index]["priority"] as! String == "Task" {
+                    newWods.append(wods[index])
+                    newIDs.append(docIDs[index])
                 }
             }
             wods = newWods
+            docIDs = newIDs
             workoutsCollection.reloadData()
         default:
-            wods = Server.instance.wods
+            wods = Server.instance.newwods
+            docIDs = Server.instance.wodsID
             workoutsCollection.reloadData()
         }
     }
+        
+
     
 }
 
@@ -138,8 +153,8 @@ extension WorkoutsVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = workoutsCollection.dequeueReusableCell(withReuseIdentifier: "Reuse", for: indexPath) as? WorkoutCell {
             let wod = wods[indexPath.row]
-            cell.setName(wod.name)
-            cell.setPriority(wod.priority)
+            cell.setName(wod["name"] as! String)
+            cell.setPriority(wod["priority"] as! String)
             return cell
         }
         return WorkoutCell()
@@ -153,7 +168,8 @@ extension WorkoutsVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let wodView = WODView()
         wodView.modalPresentationStyle = .fullScreen
-        wodView.wod = wods[indexPath.row]
+        wodView.wodDict = wods[indexPath.row]
+        wodView.docID = docIDs[indexPath.row]
         
         present(wodView, animated: true)
     }

@@ -6,14 +6,33 @@
 //
 
 import Foundation
+import FirebaseCore
+import UIKit
 
 struct Server {
     
-    static let instance = Server()
+    static var instance = Server()
     
-    let wods: [WODModel] = [
-        WODModel(name: "Detail", priority: "Task", exercises: ["10 pull-ups", "10 air squats", "10 chin-ups", "10 push-ups", "10 toe-to-bar", "10 walking lunges", "10 dips"], time: nil, sets: 5),
-        WODModel(name: "Anderson", priority: "Time", exercises: ["5 burpees", "10 push-ups", "15 sit-ups", "20 air squats"], time: 20, sets: nil)
+    var userDisplayName = ""
+    var userID = ""
+    var wodsWithMyResult: [[String : Any]] = []
+    
+    var newwods: [[String : Any]] = [
+        [
+        "name": "Detail",
+        "priority": "Task",
+        "exercises": ["pull-ups", "air squats", "chin-ups", "push-ups", "toe-to-bar", "walking lunges", "dips"],
+        "repetitions": [10, 10, 10, 10, 10, 10, 10],
+        "setsORtime": 5],
+        [
+        "name": "Anderson",
+        "priority": "Time",
+        "exercises": ["burpees", "push-ups", "sit-ups", "air squats"],
+        "repetitions": [5, 10, 15, 20],
+        "setsORtime": 20
+        ]
     ]
+    
+    var wodsID: [String] = []
     
 }
