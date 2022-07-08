@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA01433F2864BA6B00984CA5 /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01433E2864BA6B00984CA5 /* CustomHeader.swift */; };
+		BA0A622C286378BF0099A44F /* ExercisesLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A622B286378BF0099A44F /* ExercisesLibrary.swift */; };
+		BA0A622F2864962D0099A44F /* ExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A622E2864962D0099A44F /* ExercisesVC.swift */; };
+		BA2F6BBA285253AF00754A7A /* MyWODsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2F6BB9285253AF00754A7A /* MyWODsVC.swift */; };
 		BA6B9C29283FE7E700E17A49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C28283FE7E700E17A49 /* AppDelegate.swift */; };
 		BA6B9C2B283FE7E700E17A49 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C2A283FE7E700E17A49 /* SceneDelegate.swift */; };
 		BA6B9C2D283FE7E700E17A49 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C2C283FE7E700E17A49 /* MainVC.swift */; };
@@ -34,6 +38,8 @@
 		BA8C65E12843D8D700446FFC /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C65E02843D8D700446FFC /* LogInVC.swift */; };
 		BA8C65E32843DB2A00446FFC /* CustomTxtField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C65E22843DB2A00446FFC /* CustomTxtField.swift */; };
 		BA8C65E52844B8A300446FFC /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C65E42844B8A300446FFC /* SignUpVC.swift */; };
+		BA9087102872E7D800CD0AE4 /* AddWorkoutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90870F2872E7D800CD0AE4 /* AddWorkoutVC.swift */; };
+		BA9168D2287485DB0094A7A7 /* ExerciseEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9168D1287485DA0094A7A7 /* ExerciseEditorVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +60,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BA01433E2864BA6B00984CA5 /* CustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
+		BA0A622B286378BF0099A44F /* ExercisesLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesLibrary.swift; sourceTree = "<group>"; };
+		BA0A622E2864962D0099A44F /* ExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesVC.swift; sourceTree = "<group>"; };
+		BA2F6BB9285253AF00754A7A /* MyWODsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWODsVC.swift; sourceTree = "<group>"; };
 		BA6B9C25283FE7E700E17A49 /* FitYou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitYou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6B9C28283FE7E700E17A49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA6B9C2A283FE7E700E17A49 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +92,8 @@
 		BA8C65E02843D8D700446FFC /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		BA8C65E22843DB2A00446FFC /* CustomTxtField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTxtField.swift; sourceTree = "<group>"; };
 		BA8C65E42844B8A300446FFC /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		BA90870F2872E7D800CD0AE4 /* AddWorkoutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutVC.swift; sourceTree = "<group>"; };
+		BA9168D1287485DA0094A7A7 /* ExerciseEditorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +124,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA0A622D2864956F0099A44F /* Attributes */ = {
+			isa = PBXGroup;
+			children = (
+				BA6B9C6D284105FC00E17A49 /* WorkoutCell.swift */,
+				BA6B9C732841615800E17A49 /* CustomTableCell.swift */,
+				BA01433E2864BA6B00984CA5 /* CustomHeader.swift */,
+			);
+			path = Attributes;
+			sourceTree = "<group>";
+		};
 		BA6B9C1C283FE7E700E17A49 = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +195,9 @@
 				BA6B9C2C283FE7E700E17A49 /* MainVC.swift */,
 				BA6B9C6F284126FA00E17A49 /* WODView.swift */,
 				BA6B9C6B2840E9B900E17A49 /* WorkoutsVC.swift */,
+				BA0A622E2864962D0099A44F /* ExercisesVC.swift */,
+				BA90870F2872E7D800CD0AE4 /* AddWorkoutVC.swift */,
+				BA9168D1287485DA0094A7A7 /* ExerciseEditorVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -182,10 +207,9 @@
 			children = (
 				BA6B9C672840C3AB00E17A49 /* WODHeader.swift */,
 				BA6B9C692840D78D00E17A49 /* SectionButton.swift */,
-				BA6B9C6D284105FC00E17A49 /* WorkoutCell.swift */,
 				BA6B9C712841519900E17A49 /* CustomLabel.swift */,
-				BA6B9C732841615800E17A49 /* CustomTableCell.swift */,
 				BA8C65E22843DB2A00446FFC /* CustomTxtField.swift */,
+				BA0A622D2864956F0099A44F /* Attributes */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -195,6 +219,7 @@
 			children = (
 				BA6B9C75284219E800E17A49 /* WODModel.swift */,
 				BA6B9C7728421B9800E17A49 /* Server.swift */,
+				BA0A622B286378BF0099A44F /* ExercisesLibrary.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -206,6 +231,7 @@
 				BA8C65E42844B8A300446FFC /* SignUpVC.swift */,
 				BA8A66CD2848E51F00248EEF /* ProfileVC.swift */,
 				BA8BB1CF28511E5600FD5268 /* LikedWODsVC.swift */,
+				BA2F6BB9285253AF00754A7A /* MyWODsVC.swift */,
 			);
 			path = MenuVCs;
 			sourceTree = "<group>";
@@ -350,15 +376,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA8C65E12843D8D700446FFC /* LogInVC.swift in Sources */,
+				BA9168D2287485DB0094A7A7 /* ExerciseEditorVC.swift in Sources */,
 				BA6B9C76284219E800E17A49 /* WODModel.swift in Sources */,
 				BA6B9C6C2840E9B900E17A49 /* WorkoutsVC.swift in Sources */,
+				BA9087102872E7D800CD0AE4 /* AddWorkoutVC.swift in Sources */,
 				BA6B9C722841519900E17A49 /* CustomLabel.swift in Sources */,
 				BA6B9C682840C3AB00E17A49 /* WODHeader.swift in Sources */,
 				BA8BB1D028511E5600FD5268 /* LikedWODsVC.swift in Sources */,
 				BA6B9C70284126FA00E17A49 /* WODView.swift in Sources */,
 				BA6B9C2D283FE7E700E17A49 /* MainVC.swift in Sources */,
 				BA6B9C29283FE7E700E17A49 /* AppDelegate.swift in Sources */,
+				BA0A622F2864962D0099A44F /* ExercisesVC.swift in Sources */,
 				BA8C65E52844B8A300446FFC /* SignUpVC.swift in Sources */,
+				BA01433F2864BA6B00984CA5 /* CustomHeader.swift in Sources */,
 				BA6B9C6A2840D78D00E17A49 /* SectionButton.swift in Sources */,
 				BA6B9C742841615800E17A49 /* CustomTableCell.swift in Sources */,
 				BA6B9C2B283FE7E700E17A49 /* SceneDelegate.swift in Sources */,
@@ -366,7 +396,9 @@
 				BA8A66CE2848E52000248EEF /* ProfileVC.swift in Sources */,
 				BA6B9C7828421B9800E17A49 /* Server.swift in Sources */,
 				BA8C65E32843DB2A00446FFC /* CustomTxtField.swift in Sources */,
+				BA0A622C286378BF0099A44F /* ExercisesLibrary.swift in Sources */,
 				BA6B9C6E284105FC00E17A49 /* WorkoutCell.swift in Sources */,
+				BA2F6BBA285253AF00754A7A /* MyWODsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,7 +496,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -518,7 +550,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -547,7 +579,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = markosian.FitYou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -575,7 +607,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = markosian.FitYou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

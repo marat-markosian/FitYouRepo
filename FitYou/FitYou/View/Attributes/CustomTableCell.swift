@@ -36,4 +36,9 @@ class CustomTableCell: UITableViewCell {
         exerciseName.text = "\(repetitions) \(name)"
     }
     
+    func setName(_ name: String) {
+        exerciseName.text = name
+    }
+    
+    
 }

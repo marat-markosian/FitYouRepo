@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import FirebaseAuth
 
 class ProfileVC: UIViewController {
 
@@ -62,6 +63,7 @@ class ProfileVC: UIViewController {
         
         saveBtn.setTitle("Save", for: .normal)
         saveBtn.setTitleColor(.blue, for: .normal)
+        saveBtn.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
         saveBtn.translatesAutoresizingMaskIntoConstraints = false
         saveBtn.isHidden = true
         
@@ -79,11 +81,17 @@ class ProfileVC: UIViewController {
         changeEmailBtn.setTitle("Change e-mail", for: .normal)
         changeEmailBtn.setTitleColor(.black, for: .normal)
         changeEmailBtn.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        changeEmailBtn.layer.borderColor = CGColor.init(red: 104/255, green: 240/255, blue: 135/255, alpha: 0.5)
+        changeEmailBtn.layer.borderWidth = 2
+        changeEmailBtn.layer.cornerRadius = 10
                 
         changePasswordBtn.setTitle("Change password", for: .normal)
         changePasswordBtn.setTitleColor(.black, for: .normal)
         changePasswordBtn.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-                
+        changePasswordBtn.layer.borderColor = CGColor.init(red: 104/255, green: 240/255, blue: 135/255, alpha: 0.5)
+        changePasswordBtn.layer.borderWidth = 2
+        changePasswordBtn.layer.cornerRadius = 10
+
     }
     
     private func setUpAutoLayout() {
@@ -104,13 +112,27 @@ class ProfileVC: UIViewController {
             changeEmailBtn.heightAnchor.constraint(equalToConstant: 50),
             changeEmailBtn.topAnchor.constraint(equalTo: genderLbl.bottomAnchor, constant: 60),
             changeEmailBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            changeEmailBtn.widthAnchor.constraint(equalToConstant: 200),
             
             
-            changePasswordBtn.heightAnchor.constraint(equalToConstant: 30),
-            changePasswordBtn.topAnchor.constraint(equalTo: changeEmailBtn.bottomAnchor, constant: 50),
-            changePasswordBtn.centerXAnchor.constraint(equalTo: changeEmailBtn.centerXAnchor)
-                                    
+            changePasswordBtn.heightAnchor.constraint(equalToConstant: 50),
+            changePasswordBtn.topAnchor.constraint(equalTo: changeEmailBtn.bottomAnchor, constant: 40),
+            changePasswordBtn.centerXAnchor.constraint(equalTo: changeEmailBtn.centerXAnchor),
+            changePasswordBtn.widthAnchor.constraint(equalToConstant: 200)
         ])
+        
+    }
+    
+    func showError(descr: String) {
+        let alert = UIAlertController(title: "Error", message: descr, preferredStyle: .alert)
+        
+        let alertAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+            
+        }
+        
+        alert.addAction(alertAction)
+        
+        present(alert, animated: true)
         
     }
 
@@ -141,6 +163,31 @@ class ProfileVC: UIViewController {
             self.emailPasswordTxt.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
         }
         
+        
+    }
+    
+    @objc private func saveChanges() {
+        guard let newText = emailPasswordTxt.text else { return }
+        
+        if changePasswordBtn.isHidden {
+            Auth.auth().currentUser?.updateEmail(to: newText) { error in
+                if let err = error {
+                    self.showError(descr: err.localizedDescription)
+                } else {
+                    self.dismiss(animated: true)
+                }
+            }
+        }
+        
+        if changeEmailBtn.isHidden {
+            Auth.auth().currentUser?.updatePassword(to: newText) { error in
+                if let err = error {
+                    self.showError(descr: err.localizedDescription)
+                } else {
+                    self.dismiss(animated: true)
+                }
+            }
+        }
         
     }
     

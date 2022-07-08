@@ -22,7 +22,6 @@ class MainVC: UIViewController {
     let btnsStack = UIStackView()
     var handle = NSObject()
     
-    let data = Firestore.firestore()
     let wodForHead = Server.instance.newwods.randomElement()
         
     override func loadView() {
@@ -35,7 +34,7 @@ class MainVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+                
         handle = Auth.auth().addStateDidChangeListener { auth, user in
             if let user = user {
                 Server.instance.userDisplayName = user.displayName ?? ""
@@ -45,7 +44,7 @@ class MainVC: UIViewController {
                 self.changeImageAndAction(false)
             }
         } as! NSObject
-        getWODs()
+        Server.instance.getWODs()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -104,7 +103,7 @@ class MainVC: UIViewController {
     
     func changeImageAndAction(_ isLogged: Bool) {
         
-        let loggIn = UIAction(title: "Log In") { _ in
+        let logIn = UIAction(title: "Log In") { _ in
             let log = LogInVC()
             log.modalPresentationStyle = .fullScreen
             self.present(log, animated: true)
@@ -129,7 +128,9 @@ class MainVC: UIViewController {
         }
         
         let myWODs = UIAction(title: "My WODs") { _ in
-            print("MYYYY")
+            let my = MyWODsVC()
+            my.modalPresentationStyle = .fullScreen
+            self.present(my, animated: true)
         }
         
         let logOut = UIAction(title: "Log Out") { _ in
@@ -146,20 +147,17 @@ class MainVC: UIViewController {
             userBtn.menu = UIMenu(title: "", children: [profile, likedWOD, myWODs, logOut])
         } else {
             userBtn.setBackgroundImage(UIImage(systemName: "questionmark.circle"), for: .normal)
-            userBtn.menu = UIMenu(title: "", children: [loggIn, signUp])
+            userBtn.menu = UIMenu(title: "", children: [logIn, signUp])
         }
 
     }
     
     func showError(descr: String) {
         let alert = UIAlertController(title: "Error", message: descr, preferredStyle: .alert)
-        
         let alertAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-            
         }
         
         alert.addAction(alertAction)
-        
         present(alert, animated: true)
         
     }
@@ -197,11 +195,19 @@ class MainVC: UIViewController {
     @objc private func sectionTapped(_ sender: SectionButton) {
         let buttonName = sender.sectionName.text!
         let workoutsVC = WorkoutsVC()
+        let exercisesVC = ExercisesVC()
+        let addworkoutVC = AddWorkoutVC()
         workoutsVC.modalPresentationStyle = .fullScreen
+        exercisesVC.modalPresentationStyle = .fullScreen
+        addworkoutVC.modalPresentationStyle = .fullScreen
         
         switch buttonName {
         case "Workouts":
             present(workoutsVC, animated: true)
+        case "Exercises":
+            present(exercisesVC, animated: true)
+        case "Add Workout":
+            present(addworkoutVC, animated: true)
         default:
             print(buttonName)
         }
@@ -216,26 +222,4 @@ class MainVC: UIViewController {
 
 }
 
-//MARK: - Firestore Connection
-
-extension MainVC {
-    
-    func getWODs() {
-        data.collection("WODs").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print(err.localizedDescription)
-            } else {
-                var reloadData: [[String: Any]] = []
-                var reloadID: [String] = []
-                for document in querySnapshot!.documents {
-//                    Server.instance.newwods.append(document.data())
-                    reloadData.append(document.data())
-                    reloadID.append(document.documentID)
-                }
-                Server.instance.newwods = reloadData
-                Server.instance.wodsID = reloadID
-            }
-        }
-    }
-}
 

@@ -24,10 +24,11 @@ class WorkoutsVC: UIViewController {
         super.loadView()
         
         view.backgroundColor = .white
+        Server.instance.getWODs()
         setUpSubviews()
         setUpAutoLayout()
     }
-    
+        
     private func setUpSubviews() {
         view.addSubview(header)
         header.addSubview(backBtn)
@@ -96,9 +97,11 @@ class WorkoutsVC: UIViewController {
     }
     
     @objc private func prioritySets(_ sender: UISegmentedControl) {
+        
         let selectedIndex = sender.selectedSegmentIndex + 1
         var newWods: [[String: Any]] = []
         var newIDs: [String] = []
+        
         switch selectedIndex {
         case 1:
             wods = Server.instance.newwods

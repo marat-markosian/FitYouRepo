@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFirestore
 import Firebase
+import FirebaseAuth
 
 class WODView: UIViewController {
     
@@ -35,7 +36,6 @@ class WODView: UIViewController {
     private lazy var third = CustomLabel()
     private lazy var addResultBtn = UIButton()
     
-//    var wod: WODModel? = nil
     var wodDict: [String: Any] = [:]
     var exercisesForTable: [String]? = nil
     var repetitionsForTable: [Int]? = nil
@@ -53,6 +53,17 @@ class WODView: UIViewController {
         setUpSubviews()
         setUpStacks()
         setUpAutoLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if Auth.auth().currentUser == nil {
+            likeBtn.isHidden = true
+            addResultBtn.setTitle("Log In to add result", for: .normal)
+        } else {
+            addResultBtn.setTitle("Add my result", for: .normal)
+        }
     }
     
     private func setUpSubviews() {
@@ -80,11 +91,6 @@ class WODView: UIViewController {
         header.setUpPriority(wodDict["priority"] as! String)
         exercisesForTable = wodDict["exercises"] as? [String]
         repetitionsForTable = wodDict["repetitions"] as? [Int]
-//            header.setUpName(newwod.name)
-//            header.setUpPriority(newwod.priority)
-//            exercisesForTable = newwod.exercises
-//            repetitionsForTable = newwod.repetitions
-
     }
     
     private func setUpStacks() {
@@ -97,13 +103,12 @@ class WODView: UIViewController {
         resultsLbl.font = UIFont(name: "Avenir-Heavy", size: 20)
         
         resultsLbl.text = "Best results:"
-        first.text = "1"
-        second.text = "2"
-        third.text = "3"
+        first.text = "1 No result yet"
+        second.text = "2 No result yet"
+        third.text = "3 No result yet"
         
         addResultBtn.setTitleColor(.black, for: .normal)
         addResultBtn.titleLabel?.font = UIFont(name: "Avenir", size: 25)
-        addResultBtn.setTitle("Add my result", for: .normal)
         
         stack.axis = .vertical
         stack.distribution = .fillProportionally
@@ -124,18 +129,6 @@ class WODView: UIViewController {
     
     private func setUpAutoLayout() {
         NSLayoutConstraint.activate([
-//            newView.topAnchor.constraint(equalTo: view.topAnchor),
-//            newView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            newView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            newView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//
-//            contentView.topAnchor.constraint(equalTo: newView.topAnchor),
-//            contentView.bottomAnchor.constraint(equalTo: newView.bottomAnchor),
-//            contentView.leadingAnchor.constraint(equalTo: newView.leadingAnchor),
-//            contentView.trailingAnchor.constraint(equalTo: newView.trailingAnchor),
-//            contentView.centerXAnchor.constraint(equalTo: newView.centerXAnchor),
-//            contentView.centerYAnchor.constraint(equalTo: newView.centerYAnchor),
-
             header.topAnchor.constraint(equalTo: view.topAnchor),
             header.widthAnchor.constraint(equalTo: view.widthAnchor),
             header.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -199,14 +192,18 @@ class WODView: UIViewController {
     @objc private func liked() {
         
         if likeBtn.currentBackgroundImage == UIImage(systemName: "heart") {
-            db.collection("WODs").document(docID).updateData([
+            let document = db.collection("WODs").document(docID)
+            document.updateData([
                 "whoLiked" : FieldValue.arrayUnion([Server.instance.userID])
             ])
+            
             likeBtn.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
-            db.collection("WODs").document(docID).updateData([
+            let document = db.collection("WODs").document(docID)
+            document.updateData([
                 "whoLiked" : FieldValue.arrayRemove([Server.instance.userID])
             ])
+            
             likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
         }
         
@@ -217,10 +214,8 @@ class WODView: UIViewController {
 extension WODView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let table = exercisesForTable {
+        guard let table = exercisesForTable else { return 0 }
             return table.count
-        }
-        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

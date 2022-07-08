@@ -6,20 +6,32 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class LikedWODsVC: WorkoutsVC {
 
     override func loadView() {
         super.loadView()
         
+        getLikedWODs()
         setUpSubviews()
         setUpAutoLayout()
+    }
+        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        Server.instance.getWODs()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        getLikedWODs()
     }
     
     private func setUpSubviews() {
         header.changeWOD(to: "Liked WODs")
         
-        getLikedWODs()
         picker.isHidden = true
     }
     
