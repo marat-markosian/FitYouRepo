@@ -35,20 +35,29 @@ class WODView: UIViewController {
     private lazy var second = CustomLabel()
     private lazy var third = CustomLabel()
     private lazy var addResultBtn = UIButton()
+    private lazy var resultTxt = CustomTxtField()
+    var isfirstTap = true
     
     var wodDict: [String: Any] = [:]
     var exercisesForTable: [String]? = nil
     var repetitionsForTable: [Int]? = nil
     var docID: String = ""
+    var usersIDWhoAddedResult: [String] = []
+    var usersNames: [String] = []
+    var results: [Int] = []
     
     let stack = UIStackView()
-    let mainStack = UIStackView()
     
     let db = Firestore.firestore()
 
     
     override func loadView() {
         super.loadView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        isfirstTap = true
         
         setUpSubviews()
         setUpStacks()
@@ -61,9 +70,23 @@ class WODView: UIViewController {
         if Auth.auth().currentUser == nil {
             likeBtn.isHidden = true
             addResultBtn.setTitle("Log In to add result", for: .normal)
+            addResultBtn.isUserInteractionEnabled = false
         } else {
             addResultBtn.setTitle("Add my result", for: .normal)
         }
+        
+        for index in 0 ..< usersIDWhoAddedResult.count {
+            if usersIDWhoAddedResult[index] == Server.instance.userID {
+                addResultBtn.isUserInteractionEnabled = false
+                let result = results[index]
+                addResultBtn.setTitle("Your result - \(result)", for: .normal)
+            }
+        }
+
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     
     private func setUpSubviews() {
@@ -91,6 +114,12 @@ class WODView: UIViewController {
         header.setUpPriority(wodDict["priority"] as! String)
         exercisesForTable = wodDict["exercises"] as? [String]
         repetitionsForTable = wodDict["repetitions"] as? [Int]
+        
+        usersIDWhoAddedResult = wodDict["whoAddedResultIDs"] as! [String]
+        usersNames = wodDict["names"] as! [String]
+        results = wodDict["results"] as! [Int]
+        
+        setResultElements()
     }
     
     private func setUpStacks() {
@@ -106,10 +135,7 @@ class WODView: UIViewController {
         first.text = "1 No result yet"
         second.text = "2 No result yet"
         third.text = "3 No result yet"
-        
-        addResultBtn.setTitleColor(.black, for: .normal)
-        addResultBtn.titleLabel?.font = UIFont(name: "Avenir", size: 25)
-        
+                
         stack.axis = .vertical
         stack.distribution = .fillProportionally
         stack.alignment = .fill
@@ -121,10 +147,24 @@ class WODView: UIViewController {
         stack.addArrangedSubview(first)
         stack.addArrangedSubview(second)
         stack.addArrangedSubview(third)
-        stack.addArrangedSubview(addResultBtn)
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stack)
+    }
+    
+    private func setResultElements() {
+        view.addSubview(addResultBtn)
+        view.addSubview(resultTxt)
+
+        addResultBtn.setTitleColor(.black, for: .normal)
+        addResultBtn.titleLabel?.font = UIFont(name: "Avenir", size: 25)
+        addResultBtn.addTarget(self, action: #selector(addResultTapped), for: .touchUpInside)
+        addResultBtn.translatesAutoresizingMaskIntoConstraints = false
+        
+        resultTxt.placeholder = "number"
+        resultTxt.keyboardType = .numberPad
+        resultTxt.translatesAutoresizingMaskIntoConstraints = false
+        resultTxt.isHidden = true
     }
     
     private func setUpAutoLayout() {
@@ -146,20 +186,37 @@ class WODView: UIViewController {
             likeBtn.heightAnchor.constraint(equalToConstant: 25),
             
             stack.topAnchor.constraint(equalTo: header.bottomAnchor),
-            stack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             stack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            
+            addResultBtn.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: 10),
+            addResultBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            resultTxt.topAnchor.constraint(equalTo: addResultBtn.bottomAnchor, constant: 5),
+            resultTxt.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            resultTxt.heightAnchor.constraint(equalToConstant: 40),
+            resultTxt.widthAnchor.constraint(equalToConstant: 200)
         ])
         
         if let exercisesNumber = exercisesForTable?.count {
-            if exercisesNumber > 5 {
-                let newHeight = exercisesNumber * 35
+            if exercisesNumber < 5 {
+                let newHeight = exercisesNumber * 50
                 exercisesTable.heightAnchor.constraint(equalToConstant: CGFloat(newHeight)).isActive = true
+                if exercisesNumber == 1{
+                    stack.heightAnchor.constraint(equalToConstant: 210).isActive = true
+                }
+                if exercisesNumber == 2 {
+                    stack.heightAnchor.constraint(equalToConstant: 260).isActive = true
+                }
+                if exercisesNumber == 3 {
+                    stack.heightAnchor.constraint(equalToConstant: 310).isActive = true
+                } else if exercisesNumber == 4 {
+                    stack.heightAnchor.constraint(equalToConstant: 360).isActive = true
+                }
             } else {
-                exercisesTable.heightAnchor.constraint(equalToConstant: 200).isActive = true
+                exercisesTable.heightAnchor.constraint(equalToConstant: 250).isActive = true
+                stack.heightAnchor.constraint(equalToConstant: 410).isActive = true
             }
-        } else {
-            exercisesTable.heightAnchor.constraint(equalToConstant: 250).isActive = true
         }
         
         if view.frame.height < 700 {
@@ -183,6 +240,16 @@ class WODView: UIViewController {
                 }
             }
         }
+    }
+    
+    func showError(descr: String) {
+        let alert = UIAlertController(title: "Error", message: descr, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+        }
+        
+        alert.addAction(alertAction)
+        present(alert, animated: true)
+        
     }
 
     @objc private func backAction() {
@@ -208,7 +275,44 @@ class WODView: UIViewController {
         }
         
     }
-
+    
+    @objc private func addResultTapped() {
+        if isfirstTap {
+            addResultBtn.setTitle("Add", for: .normal)
+            
+            resultTxt.isHidden = false
+            isfirstTap = false
+        } else {
+            if resultTxt.text != "" {
+                let resultNum = Int(resultTxt.text!)!
+                let document = db.collection("WODs").document(docID)
+                document.updateData([
+                    "whoAddedResultIDs" : FieldValue.arrayUnion([Server.instance.userID]),
+                    "names" : FieldValue.arrayUnion([Server.instance.userDisplayName]),
+                    "results" : FieldValue.arrayUnion([resultNum])
+                ])
+                addResultBtn.isHidden = true
+                resultTxt.isHidden = true
+            } else {
+                showError(descr: "Need result number to save")
+            }
+        }
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if view.frame.origin.y == 0 {
+                view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc private func keyboardWillHide() {
+        if view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
+    }
+    
 }
 
 extension WODView: UITableViewDataSource {

@@ -176,6 +176,9 @@ class AddWorkoutVC: UIViewController {
     }
     
     @objc private func cancelTap() {
+        ExercisesLibrary.instance.repetitionsToAdd = []
+        ExercisesLibrary.instance.exercisesToAdd = []
+        
         dismiss(animated: true)
     }
     
@@ -209,6 +212,9 @@ class AddWorkoutVC: UIViewController {
                 setsORtime = Int(setsORtimeTxt.text!)!
             }
             let whoLiked: [String] = []
+            let whoAddedResultIDs: [String] = []
+            let names: [String] = []
+            let results: [Int] = []
             
             var ref: DocumentReference? = nil
             ref = db.collection("WODs").addDocument(data: [
@@ -218,7 +224,10 @@ class AddWorkoutVC: UIViewController {
                 "exercises": exercises,
                 "repetitions": repetitions,
                 "creator": Server.instance.userID,
-                "whoLiked": whoLiked
+                "whoLiked": whoLiked,
+                "whoAddedResultIDs": whoAddedResultIDs,
+                "names": names,
+                "results": results
             ]) { err in
                 if let err = err {
                     self.showError(descr: err.localizedDescription)
@@ -237,10 +246,17 @@ extension AddWorkoutVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let editor = ExerciseEditorVC()
-        editor.modalPresentationStyle = .fullScreen
-        present(editor, animated: true)
+        if exercises.count <= indexPath.row {
+            let editor = ExerciseEditorVC()
+            editor.modalPresentationStyle = .fullScreen
+            present(editor, animated: true)
+
+        } else {
+
+            showError(descr: "Sorry, you can`t edit")
+
+        }
+            
     }
     
 }
