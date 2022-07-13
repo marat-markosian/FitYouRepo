@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
 
 class LikedWODsVC: WorkoutsVC {
 
@@ -23,6 +22,7 @@ class LikedWODsVC: WorkoutsVC {
         
         Server.instance.getWODs()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         

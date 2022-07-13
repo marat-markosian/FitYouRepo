@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class AddWorkoutVC: UIViewController {
 
@@ -37,6 +38,13 @@ class AddWorkoutVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if Auth.auth().currentUser == nil {
+            addBtn.setTitle("Log In to add", for: .normal)
+            addBtn.isUserInteractionEnabled = false
+        } else {
+            addBtn.setTitle("Add", for: .normal)
+        }
+
         exercises = ExercisesLibrary.instance.exercisesToAdd
         repetitions = ExercisesLibrary.instance.repetitionsToAdd
         exercisesTable.reloadData()

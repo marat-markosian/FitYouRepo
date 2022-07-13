@@ -83,6 +83,11 @@ class WODView: UIViewController {
             }
         }
 
+        if usersIDWhoAddedResult.count > 0 {
+            let indexOfMaxResult = results.firstIndex(of: results.max()!)
+            first.text = "1. \(usersNames[indexOfMaxResult!]) - \(results.max()!)"
+        }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -135,6 +140,8 @@ class WODView: UIViewController {
         first.text = "1 No result yet"
         second.text = "2 No result yet"
         third.text = "3 No result yet"
+        second.isHidden = true
+        third.isHidden = true
                 
         stack.axis = .vertical
         stack.distribution = .fillProportionally

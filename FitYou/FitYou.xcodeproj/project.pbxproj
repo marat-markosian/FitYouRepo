@@ -38,6 +38,7 @@
 		BA8C65E12843D8D700446FFC /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C65E02843D8D700446FFC /* LogInVC.swift */; };
 		BA8C65E32843DB2A00446FFC /* CustomTxtField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C65E22843DB2A00446FFC /* CustomTxtField.swift */; };
 		BA8C65E52844B8A300446FFC /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8C65E42844B8A300446FFC /* SignUpVC.swift */; };
+		BA8D1873287F046E0091A0DE /* PopularWODsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D1872287F046D0091A0DE /* PopularWODsVC.swift */; };
 		BA9087102872E7D800CD0AE4 /* AddWorkoutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90870F2872E7D800CD0AE4 /* AddWorkoutVC.swift */; };
 		BA9168D2287485DB0094A7A7 /* ExerciseEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9168D1287485DA0094A7A7 /* ExerciseEditorVC.swift */; };
 /* End PBXBuildFile section */
@@ -92,6 +93,7 @@
 		BA8C65E02843D8D700446FFC /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		BA8C65E22843DB2A00446FFC /* CustomTxtField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTxtField.swift; sourceTree = "<group>"; };
 		BA8C65E42844B8A300446FFC /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		BA8D1872287F046D0091A0DE /* PopularWODsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularWODsVC.swift; sourceTree = "<group>"; };
 		BA90870F2872E7D800CD0AE4 /* AddWorkoutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutVC.swift; sourceTree = "<group>"; };
 		BA9168D1287485DA0094A7A7 /* ExerciseEditorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,6 +200,7 @@
 				BA0A622E2864962D0099A44F /* ExercisesVC.swift */,
 				BA90870F2872E7D800CD0AE4 /* AddWorkoutVC.swift */,
 				BA9168D1287485DA0094A7A7 /* ExerciseEditorVC.swift */,
+				BA8D1872287F046D0091A0DE /* PopularWODsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				BA6B9C722841519900E17A49 /* CustomLabel.swift in Sources */,
 				BA6B9C682840C3AB00E17A49 /* WODHeader.swift in Sources */,
 				BA8BB1D028511E5600FD5268 /* LikedWODsVC.swift in Sources */,
+				BA8D1873287F046E0091A0DE /* PopularWODsVC.swift in Sources */,
 				BA6B9C70284126FA00E17A49 /* WODView.swift in Sources */,
 				BA6B9C2D283FE7E700E17A49 /* MainVC.swift in Sources */,
 				BA6B9C29283FE7E700E17A49 /* AppDelegate.swift in Sources */,

@@ -25,7 +25,10 @@ struct Server {
         "exercises": ["pull-ups", "air squats", "chin-ups", "push-ups", "toe-to-bar", "walking lunges", "dips"],
         "repetitions": [10, 10, 10, 10, 10, 10, 10],
         "setsORtime": 5,
-        "whoLiked": []
+        "whoLiked": [],
+        "whoAddedResultIDs": [],
+        "names": [],
+        "results": []
         ],
         [
         "name": "Anderson",
@@ -33,7 +36,10 @@ struct Server {
         "exercises": ["burpees", "push-ups", "sit-ups", "air squats"],
         "repetitions": [5, 10, 15, 20],
         "setsORtime": 20,
-        "whoLiked": []
+        "whoLiked": [],
+        "whoAddedResultIDs": [],
+        "names": [],
+        "results": []
         ]
     ]
     

@@ -197,9 +197,11 @@ class MainVC: UIViewController {
         let workoutsVC = WorkoutsVC()
         let exercisesVC = ExercisesVC()
         let addworkoutVC = AddWorkoutVC()
+        let popularWODs = PopularWODsVC()
         workoutsVC.modalPresentationStyle = .fullScreen
         exercisesVC.modalPresentationStyle = .fullScreen
         addworkoutVC.modalPresentationStyle = .fullScreen
+        popularWODs.modalPresentationStyle = .fullScreen
         
         switch buttonName {
         case "Workouts":
@@ -208,6 +210,8 @@ class MainVC: UIViewController {
             present(exercisesVC, animated: true)
         case "Add Workout":
             present(addworkoutVC, animated: true)
+        case "Popular Workouts":
+            present(popularWODs, animated: true)
         default:
             print(buttonName)
         }
