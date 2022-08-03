@@ -57,8 +57,8 @@ class ExercisesVC: UIViewController {
             
             backBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backBtn.leadingAnchor.constraint(equalTo: header.stack.leadingAnchor),
-            backBtn.widthAnchor.constraint(equalToConstant: 15),
-            backBtn.heightAnchor.constraint(equalToConstant: 20),
+            backBtn.widthAnchor.constraint(equalToConstant: 20),
+            backBtn.heightAnchor.constraint(equalToConstant: 30),
 
             exercisesTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             exercisesTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),

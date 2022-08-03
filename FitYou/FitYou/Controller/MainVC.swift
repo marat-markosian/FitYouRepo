@@ -22,7 +22,7 @@ class MainVC: UIViewController {
     let btnsStack = UIStackView()
     var handle = NSObject()
     
-    let wodForHead = Server.instance.newwods.randomElement()
+    let wodForHead = Server.instance.newwods[0]
         
     override func loadView() {
         super.loadView()
@@ -65,8 +65,8 @@ class MainVC: UIViewController {
         let tapHead = UITapGestureRecognizer(target: self, action: #selector(goToHeadWOD))
         
         header.changeWOD(to: "Workout of the Day")
-        header.setUpName(wodForHead?["name"] as! String)
-        header.setUpPriority(wodForHead?["priority"] as! String)
+        header.setUpName(wodForHead["name"] as! String)
+        header.setUpPriority(wodForHead["priority"] as! String)
         header.stack.isUserInteractionEnabled = true
         header.stack.addGestureRecognizer(tapHead)
         
@@ -219,7 +219,8 @@ class MainVC: UIViewController {
 
     @objc func goToHeadWOD() {
         let wodview = WODView()
-        wodview.wodDict = wodForHead!
+        wodview.wodDict = wodForHead
+        wodview.docID = Server.instance.wodsID[0]
         wodview.modalPresentationStyle = .fullScreen
         present(wodview, animated: true)
     }

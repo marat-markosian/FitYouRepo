@@ -41,6 +41,7 @@
 		BA8D1873287F046E0091A0DE /* PopularWODsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D1872287F046D0091A0DE /* PopularWODsVC.swift */; };
 		BA9087102872E7D800CD0AE4 /* AddWorkoutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90870F2872E7D800CD0AE4 /* AddWorkoutVC.swift */; };
 		BA9168D2287485DB0094A7A7 /* ExerciseEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9168D1287485DA0094A7A7 /* ExerciseEditorVC.swift */; };
+		BA91BD82289858A600B53F45 /* ResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91BD81289858A600B53F45 /* ResultsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		BA8D1872287F046D0091A0DE /* PopularWODsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularWODsVC.swift; sourceTree = "<group>"; };
 		BA90870F2872E7D800CD0AE4 /* AddWorkoutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutVC.swift; sourceTree = "<group>"; };
 		BA9168D1287485DA0094A7A7 /* ExerciseEditorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorVC.swift; sourceTree = "<group>"; };
+		BA91BD81289858A600B53F45 /* ResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 				BA90870F2872E7D800CD0AE4 /* AddWorkoutVC.swift */,
 				BA9168D1287485DA0094A7A7 /* ExerciseEditorVC.swift */,
 				BA8D1872287F046D0091A0DE /* PopularWODsVC.swift */,
+				BA91BD81289858A600B53F45 /* ResultsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				BA9087102872E7D800CD0AE4 /* AddWorkoutVC.swift in Sources */,
 				BA6B9C722841519900E17A49 /* CustomLabel.swift in Sources */,
 				BA6B9C682840C3AB00E17A49 /* WODHeader.swift in Sources */,
+				BA91BD82289858A600B53F45 /* ResultsVC.swift in Sources */,
 				BA8BB1D028511E5600FD5268 /* LikedWODsVC.swift in Sources */,
 				BA8D1873287F046E0091A0DE /* PopularWODsVC.swift in Sources */,
 				BA6B9C70284126FA00E17A49 /* WODView.swift in Sources */,
@@ -570,20 +574,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = KC6374BX74;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FitYou/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.2;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = markosian.FitYou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -598,20 +602,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = KC6374BX74;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FitYou/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.2;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = markosian.FitYou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -19,6 +19,7 @@ class AddWorkoutVC: UIViewController {
     private lazy var exercisesLbl = CustomLabel()
     private lazy var addExercise = UIButton()
     private lazy var exercisesTable = UITableView()
+    private lazy var descriptionTxt = CustomTxtField()
     private lazy var addBtn = UIButton()
     
     private var exercisesNumber = 1
@@ -30,7 +31,7 @@ class AddWorkoutVC: UIViewController {
 
     override func loadView() {
         super.loadView()
-        
+                
         setUpSubviews()
         setUpAutoLayout()
     }
@@ -56,12 +57,14 @@ class AddWorkoutVC: UIViewController {
         view.addSubview(cancel)
         view.addSubview(nameTxt)
         view.addSubview(priorityChooser)
+        view.addSubview(descriptionTxt)
         view.addSubview(addBtn)
         
         cancel.translatesAutoresizingMaskIntoConstraints = false
         nameTxt.translatesAutoresizingMaskIntoConstraints = false
         priorityChooser.translatesAutoresizingMaskIntoConstraints = false
         addBtn.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTxt.translatesAutoresizingMaskIntoConstraints = false
         
         
         cancel.setTitle("Cancel", for: .normal)
@@ -69,6 +72,8 @@ class AddWorkoutVC: UIViewController {
         cancel.addTarget(self, action: #selector(cancelTap), for: .touchUpInside)
         
         nameTxt.placeholder = "name"
+        
+        descriptionTxt.placeholder = "description"
         
         priorityChooser.addTarget(self, action: #selector(priorityChanged), for: .valueChanged)
         
@@ -80,6 +85,10 @@ class AddWorkoutVC: UIViewController {
         addBtn.setTitle("Add", for: .normal)
         addBtn.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 25)
         addBtn.addTarget(self, action: #selector(addWOD), for: .touchUpInside)
+        addBtn.layer.borderColor = CGColor.init(red: 104/255, green: 240/255, blue: 135/255, alpha: 0.5)
+        addBtn.layer.borderWidth = 2
+        addBtn.layer.cornerRadius = 10
+
     }
     
     private func setSetsANDTimeChooser() {
@@ -91,8 +100,8 @@ class AddWorkoutVC: UIViewController {
         
         setsORtimeLbl.text = "Sets/Total Time:"
         setsORtimeTxt.placeholder = "number"
-        
-        setsORtimeTxt.keyboardType = .numberPad
+        setsORtimeTxt.delegate = self
+        setsORtimeTxt.keyboardType = .decimalPad
     }
     
     private func setExercisesController() {
@@ -131,7 +140,7 @@ class AddWorkoutVC: UIViewController {
             nameTxt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             nameTxt.heightAnchor.constraint(equalToConstant: 40),
 
-            priorityChooser.topAnchor.constraint(equalTo: nameTxt.bottomAnchor, constant: 15),
+            priorityChooser.topAnchor.constraint(equalTo: descriptionTxt.bottomAnchor, constant: 15),
             priorityChooser.leadingAnchor.constraint(equalTo: nameTxt.leadingAnchor),
             priorityChooser.trailingAnchor.constraint(equalTo: nameTxt.trailingAnchor),
             priorityChooser.heightAnchor.constraint(equalToConstant: 30),
@@ -154,8 +163,14 @@ class AddWorkoutVC: UIViewController {
             exercisesTable.leadingAnchor.constraint(equalTo: exercisesLbl.leadingAnchor),
             exercisesTable.trailingAnchor.constraint(equalTo: nameTxt.trailingAnchor),
             
+            descriptionTxt.topAnchor.constraint(equalTo: nameTxt.bottomAnchor, constant: 10),
+            descriptionTxt.leadingAnchor.constraint(equalTo: nameTxt.leadingAnchor),
+            descriptionTxt.trailingAnchor.constraint(equalTo: nameTxt.trailingAnchor),
+            descriptionTxt.heightAnchor.constraint(equalToConstant: 40),
+            
             addBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addBtn.topAnchor.constraint(equalTo: exercisesTable.bottomAnchor, constant: 30)
+            addBtn.topAnchor.constraint(equalTo: exercisesTable.bottomAnchor, constant: 15),
+            addBtn.widthAnchor.constraint(equalToConstant: 70)
         ])
         
         if view.frame.height < 700 {
@@ -167,7 +182,7 @@ class AddWorkoutVC: UIViewController {
     }
     
     private func checkItems() -> Bool {
-        if nameTxt.text == "" || priorityChooser.selectedSegmentIndex == -1 || setsORtimeTxt.text == "" || exercises.count == 0 {
+        if nameTxt.text == "" || priorityChooser.selectedSegmentIndex == -1 || setsORtimeTxt.text == "" || exercises.count == 0 || descriptionTxt.text == "" {
             return false
         }
         return true
@@ -193,8 +208,12 @@ class AddWorkoutVC: UIViewController {
     @objc private func priorityChanged() {
         if priorityChooser.selectedSegmentIndex == 0 {
             setsORtimeLbl.text = "Total Time:"
+            setsORtimeTxt.placeholder = "min.sec"
+            setsORtimeTxt.keyboardType = .decimalPad
         } else if priorityChooser.selectedSegmentIndex == 1 {
             setsORtimeLbl.text = "Sets:"
+            setsORtimeTxt.placeholder = "number"
+            setsORtimeTxt.keyboardType = .numberPad
         } else {
             setsORtimeLbl.text = "Sets/Total Time:"
         }
@@ -215,14 +234,14 @@ class AddWorkoutVC: UIViewController {
                 priority = "Time"
             }
             
-            var setsORtime: Int = 0
+            var setsORtime: Float = 0
             if setsORtimeTxt.text != "" {
-                setsORtime = Int(setsORtimeTxt.text!)!
+                setsORtime = Float(setsORtimeTxt.text!)!
             }
             let whoLiked: [String] = []
             let whoAddedResultIDs: [String] = []
             let names: [String] = []
-            let results: [Int] = []
+            let results: [Float] = []
             
             var ref: DocumentReference? = nil
             ref = db.collection("WODs").addDocument(data: [
@@ -235,7 +254,8 @@ class AddWorkoutVC: UIViewController {
                 "whoLiked": whoLiked,
                 "whoAddedResultIDs": whoAddedResultIDs,
                 "names": names,
-                "results": results
+                "results": results,
+                "description": descriptionTxt.text
             ]) { err in
                 if let err = err {
                     self.showError(descr: err.localizedDescription)
@@ -248,6 +268,7 @@ class AddWorkoutVC: UIViewController {
             showError(descr: "Need to set all items")
         }
     }
+    
 }
 
 extension AddWorkoutVC: UITableViewDelegate {
@@ -292,4 +313,40 @@ extension AddWorkoutVC: UITableViewDataSource {
     }
     
     
+}
+
+extension AddWorkoutVC: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField.text?.count == 0 {
+            if string == "," || string == "." {
+                return false
+            }
+        } else {
+            if textField.text?.count == 1 {
+                if string == "," || string == "." {
+                    textField.text = textField.text! + "."
+                    return false
+                }
+            }
+            if textField.text?.count == 2 {
+                if string == "," || string == "." {
+                    textField.text = textField.text! + "."
+                    return false
+                } else if string == "" {
+                    return true
+                } else if textField.text?.last == "." {
+                    return true
+                } else {
+                    return false
+                }
+            } else if textField.text!.contains(".") {
+                if string == "." || string == "," {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
 }

@@ -24,9 +24,20 @@ class WorkoutsVC: UIViewController {
         super.loadView()
         
         view.backgroundColor = .white
-        Server.instance.getWODs()
+
         setUpSubviews()
         setUpAutoLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        DispatchQueue.main.async {
+//            Server.instance.getWODs()
+//            self.wods = Server.instance.newwods
+//            self.docIDs = Server.instance.wodsID
+//            self.workoutsCollection.reloadData()
+//        }
     }
         
     private func setUpSubviews() {
@@ -70,8 +81,8 @@ class WorkoutsVC: UIViewController {
             
             backBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backBtn.leadingAnchor.constraint(equalTo: header.stack.leadingAnchor),
-            backBtn.widthAnchor.constraint(equalToConstant: 15),
-            backBtn.heightAnchor.constraint(equalToConstant: 20),
+            backBtn.widthAnchor.constraint(equalToConstant: 20),
+            backBtn.heightAnchor.constraint(equalToConstant: 30),
             
             picker.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 5),
             picker.heightAnchor.constraint(equalToConstant: 30),

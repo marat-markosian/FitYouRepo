@@ -21,18 +21,19 @@ class LikedWODsVC: WorkoutsVC {
         super.viewWillAppear(animated)
         
         Server.instance.getWODs()
+        getLikedWODs()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        getLikedWODs()
     }
     
     private func setUpSubviews() {
         header.changeWOD(to: "Liked WODs")
         
         picker.isHidden = true
+        getLikedWODs()
     }
     
     private func setUpAutoLayout() {
