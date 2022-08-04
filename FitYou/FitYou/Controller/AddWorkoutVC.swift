@@ -207,13 +207,13 @@ class AddWorkoutVC: UIViewController {
     
     @objc private func priorityChanged() {
         if priorityChooser.selectedSegmentIndex == 0 {
-            setsORtimeLbl.text = "Total Time:"
-            setsORtimeTxt.placeholder = "min.sec"
-            setsORtimeTxt.keyboardType = .decimalPad
-        } else if priorityChooser.selectedSegmentIndex == 1 {
             setsORtimeLbl.text = "Sets:"
             setsORtimeTxt.placeholder = "number"
             setsORtimeTxt.keyboardType = .numberPad
+        } else if priorityChooser.selectedSegmentIndex == 1 {
+            setsORtimeLbl.text = "Total Time:"
+            setsORtimeTxt.placeholder = "min.sec"
+            setsORtimeTxt.keyboardType = .decimalPad
         } else {
             setsORtimeLbl.text = "Sets/Total Time:"
         }
@@ -318,6 +318,13 @@ extension AddWorkoutVC: UITableViewDataSource {
 extension AddWorkoutVC: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField.text?.count == 5 && string == "" {
+           return true
+        } else if textField.text?.count == 5 {
+            return false
+        }
+
         if textField.text?.count == 0 {
             if string == "," || string == "." {
                 return false
@@ -330,6 +337,11 @@ extension AddWorkoutVC: UITextFieldDelegate {
                 }
             }
             if textField.text?.count == 2 {
+                if textField.text!.contains(".") {
+                    if string == "." || string == "," {
+                        return false
+                    }
+                }
                 if string == "," || string == "." {
                     textField.text = textField.text! + "."
                     return false
@@ -342,6 +354,10 @@ extension AddWorkoutVC: UITextFieldDelegate {
                 }
             } else if textField.text!.contains(".") {
                 if string == "." || string == "," {
+                    return false
+                } else if Float(textField.text!)!.truncatingRemainder(dividingBy: 1) > 0.59 && string == "" {
+                    return true
+                } else if Float(textField.text!)!.truncatingRemainder(dividingBy: 1) > 0.59 {
                     return false
                 }
             }

@@ -253,19 +253,7 @@ class WODView: UIViewController {
             descriptionText.leadingAnchor.constraint(equalTo: stack.leadingAnchor),
             descriptionText.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
             descriptionText.heightAnchor.constraint(equalToConstant: 100),
-            
-            resultsBtn.topAnchor.constraint(equalTo: descriptionText.bottomAnchor, constant: 15),
-            resultsBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            resultsBtn.widthAnchor.constraint(equalToConstant: 100),
-            
-            addResultBtn.topAnchor.constraint(equalTo: resultsBtn.bottomAnchor, constant: 10),
-            addResultBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addResultBtn.widthAnchor.constraint(equalToConstant: 200),
-            
-            resultTxt.topAnchor.constraint(equalTo: addResultBtn.bottomAnchor, constant: 5),
-            resultTxt.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            resultTxt.heightAnchor.constraint(equalToConstant: 40),
-            resultTxt.widthAnchor.constraint(equalToConstant: 200)
+                        
         ])
         
         if let exercisesNumber = exercisesForTable?.count {
@@ -290,9 +278,41 @@ class WODView: UIViewController {
         }
         
         if view.frame.height < 700 {
-            header.heightAnchor.constraint(equalToConstant: 140).isActive = true
+            NSLayoutConstraint.activate([
+                header.heightAnchor.constraint(equalToConstant: 140),
+                
+                addResultBtn.topAnchor.constraint(equalTo: resultsBtn.bottomAnchor, constant: 10),
+                addResultBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+                addResultBtn.widthAnchor.constraint(equalToConstant: 200),
+                
+                resultTxt.bottomAnchor.constraint(equalTo: addResultBtn.bottomAnchor),
+                resultTxt.leadingAnchor.constraint(equalTo: addResultBtn.trailingAnchor, constant: 5),
+                resultTxt.heightAnchor.constraint(equalToConstant: 40),
+                resultTxt.widthAnchor.constraint(equalToConstant: 150),
+                
+                resultsBtn.topAnchor.constraint(equalTo: descriptionText.bottomAnchor, constant: 15),
+                resultsBtn.leadingAnchor.constraint(equalTo: addResultBtn.leadingAnchor),
+                resultsBtn.widthAnchor.constraint(equalToConstant: 100)
+
+            ])
         } else {
-            header.heightAnchor.constraint(equalToConstant: 200).isActive = true
+            NSLayoutConstraint.activate([
+                header.heightAnchor.constraint(equalToConstant: 200),
+                
+                addResultBtn.topAnchor.constraint(equalTo: resultsBtn.bottomAnchor, constant: 10),
+                addResultBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                addResultBtn.widthAnchor.constraint(equalToConstant: 200),
+                
+                resultTxt.topAnchor.constraint(equalTo: addResultBtn.bottomAnchor, constant: 5),
+                resultTxt.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                resultTxt.heightAnchor.constraint(equalToConstant: 40),
+                resultTxt.widthAnchor.constraint(equalToConstant: 200),
+                
+                resultsBtn.topAnchor.constraint(equalTo: descriptionText.bottomAnchor, constant: 15),
+                resultsBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                resultsBtn.widthAnchor.constraint(equalToConstant: 100)
+            ])
+
         }
 
     }
@@ -358,7 +378,7 @@ class WODView: UIViewController {
     @objc private func addResultTapped() {
         if isfirstTap {
             addResultBtn.setTitle("Add", for: .normal)
-            
+                        
             resultTxt.isHidden = false
             isfirstTap = false
         } else {
@@ -432,6 +452,13 @@ extension WODView: UITableViewDelegate {
 extension WODView: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField.text?.count == 5 && string == "" {
+           return true
+        } else if textField.text?.count == 5 {
+            return false
+        }
+
         if textField.text?.count == 0 {
             if string == "," || string == "." {
                 return false
@@ -444,6 +471,11 @@ extension WODView: UITextFieldDelegate {
                 }
             }
             if textField.text?.count == 2 {
+                if textField.text!.contains(".") {
+                    if string == "." || string == "," {
+                        return false
+                    }
+                }
                 if string == "," || string == "." {
                     textField.text = textField.text! + "."
                     return false
@@ -456,6 +488,10 @@ extension WODView: UITextFieldDelegate {
                 }
             } else if textField.text!.contains(".") {
                 if string == "." || string == "," {
+                    return false
+                } else if Float(textField.text!)!.truncatingRemainder(dividingBy: 1) > 0.59 && string == "" {
+                    return true
+                } else if Float(textField.text!)!.truncatingRemainder(dividingBy: 1) > 0.59 {
                     return false
                 }
             }
