@@ -7,9 +7,8 @@
 
 import UIKit
 
-class ExercisesVC: UIViewController {
+class ExercisesVC: CustomVC {
 
-    private lazy var backBtn = UIButton()
     private lazy var header = WODHeader()
     private lazy var exercisesTable = UITableView()
 
@@ -27,13 +26,8 @@ class ExercisesVC: UIViewController {
         view.addSubview(exercisesTable)
         header.addSubview(backBtn)
         
-        backBtn.translatesAutoresizingMaskIntoConstraints = false
         header.translatesAutoresizingMaskIntoConstraints = false
         exercisesTable.translatesAutoresizingMaskIntoConstraints = false
-        
-        backBtn.setBackgroundImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        backBtn.tintColor = .black
-        backBtn.addTarget(self, action: #selector(backAction), for: .touchUpInside)
 
         header.changeWOD(to: "Exercises")
         header.hideName()
@@ -73,11 +67,7 @@ class ExercisesVC: UIViewController {
         }
 
     }
-    
-    @objc private func backAction() {
-        dismiss(animated: true)
-    }
-    
+        
 }
 
 extension ExercisesVC: UITableViewDelegate {

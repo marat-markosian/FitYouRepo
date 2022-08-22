@@ -8,11 +8,10 @@
 import UIKit
 import FirebaseAuth
 
-class LogInVC: UIViewController {
+class LogInVC: CustomVC {
 
     private lazy var emailTxt = CustomTxtField()
     private lazy var passwordTxt = CustomTxtField()
-    private lazy var cancelBtn = UIButton()
     private lazy var loginBtn = UIButton()
     
     override func loadView() {
@@ -27,18 +26,12 @@ class LogInVC: UIViewController {
         
         view.addSubview(emailTxt)
         view.addSubview(passwordTxt)
-        view.addSubview(cancelBtn)
         view.addSubview(loginBtn)
         
         emailTxt.translatesAutoresizingMaskIntoConstraints = false
         passwordTxt.translatesAutoresizingMaskIntoConstraints = false
-        cancelBtn.translatesAutoresizingMaskIntoConstraints = false
         loginBtn.translatesAutoresizingMaskIntoConstraints = false
-        
-        cancelBtn.setTitleColor(.red, for: .normal)
-        cancelBtn.setTitle("Cancel", for: .normal)
-        cancelBtn.addTarget(self, action: #selector(cancel), for: .touchUpInside)
-        
+                
         loginBtn.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 25)
         loginBtn.setTitleColor(.black, for: .normal)
         loginBtn.setTitle("Log In", for: .normal)
@@ -56,10 +49,7 @@ class LogInVC: UIViewController {
     
     
     private func setUpAutoLayout() {
-        NSLayoutConstraint.activate([
-            cancelBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            cancelBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            
+        NSLayoutConstraint.activate([            
             emailTxt.topAnchor.constraint(equalTo: cancelBtn.bottomAnchor, constant: 30),
             emailTxt.leadingAnchor.constraint(equalTo: cancelBtn.leadingAnchor),
             emailTxt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
@@ -75,6 +65,10 @@ class LogInVC: UIViewController {
             
         ])
     }
+
+}
+
+extension LogInVC: LogInOperator {
     
     func login(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
@@ -87,19 +81,7 @@ class LogInVC: UIViewController {
         }
     }
     
-    func showError(descr: String) {
-        let alert = UIAlertController(title: "Error", message: descr, preferredStyle: .alert)
-        
-        let alertAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-            
-        }
-        
-        alert.addAction(alertAction)
-        
-        present(alert, animated: true)
-        
-    }
-
+    
     @objc func logIn() {
         if let email = emailTxt.text, let password = passwordTxt.text {
             if password.count > 8 {
@@ -110,10 +92,5 @@ class LogInVC: UIViewController {
         }
 
     }
-
     
-    @objc func cancel() {
-        dismiss(animated: true)
-    }
-
 }

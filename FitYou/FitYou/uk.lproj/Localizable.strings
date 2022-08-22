@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  FitYou
+
+  Created by Марат Маркосян on 15.08.2022.
+  
+*/
+
+//MARK: - MainVC
+
+"WOD_main" = "Комплекс дня";
+"exercises_main" = "Вправи";
+"workouts_main" = "Комплекси";
+"addWorkout_main" = "Додати Комплекс";
+"popularWorkouts_main" = "Популярні Комплекси";

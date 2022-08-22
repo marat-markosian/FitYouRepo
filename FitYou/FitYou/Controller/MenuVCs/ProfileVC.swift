@@ -9,9 +9,8 @@ import UIKit
 import CoreData
 import FirebaseAuth
 
-class ProfileVC: UIViewController {
+class ProfileVC: CustomVC {
 
-    private lazy var cancelBtn = UIButton()
     private lazy var nameLbl = CustomLabel()
     private lazy var genderLbl = UILabel()
     private lazy var changeEmailBtn = UIButton()
@@ -44,7 +43,6 @@ class ProfileVC: UIViewController {
     
     private func setUpSubviews() {
         view.backgroundColor = .white
-        view.addSubview(cancelBtn)
         view.addSubview(saveBtn)
         view.addSubview(nameLbl)
         view.addSubview(genderLbl)
@@ -55,11 +53,6 @@ class ProfileVC: UIViewController {
         genderLbl.translatesAutoresizingMaskIntoConstraints = false
         changeEmailBtn.translatesAutoresizingMaskIntoConstraints = false
         changePasswordBtn.translatesAutoresizingMaskIntoConstraints = false
-        
-        cancelBtn.setTitleColor(.red, for: .normal)
-        cancelBtn.setTitle("Cancel", for: .normal)
-        cancelBtn.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
-        cancelBtn.translatesAutoresizingMaskIntoConstraints = false
         
         saveBtn.setTitle("Save", for: .normal)
         saveBtn.setTitleColor(.blue, for: .normal)
@@ -96,8 +89,6 @@ class ProfileVC: UIViewController {
     
     private func setUpAutoLayout() {
         NSLayoutConstraint.activate([
-            cancelBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            cancelBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             cancelBtn.heightAnchor.constraint(equalTo: saveBtn.heightAnchor),
             
             saveBtn.topAnchor.constraint(equalTo: cancelBtn.topAnchor),
@@ -122,24 +113,7 @@ class ProfileVC: UIViewController {
         ])
         
     }
-    
-    func showError(descr: String) {
-        let alert = UIAlertController(title: "Error", message: descr, preferredStyle: .alert)
         
-        let alertAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-            
-        }
-        
-        alert.addAction(alertAction)
-        
-        present(alert, animated: true)
-        
-    }
-
-    @objc private func cancelTapped() {
-        dismiss(animated: true)
-    }
-    
     @objc private func buttonPressed(_ sender: UIButton) {
         saveBtn.isHidden = false
         

@@ -8,6 +8,22 @@
 import UIKit
 import FirebaseFirestore
 
+protocol WODCreator {
+    func createWOD()
+}
+
+protocol LogInOperator {
+    func login(email: String, password: String)
+}
+
+protocol SignUpOperator {
+    func signUpToServer(email: String, password: String, name: String, gender: String)
+}
+
+protocol SaveCoreDataOperator {
+    func saveGender(gender: String)
+}
+
 struct Server {
     
     static var instance = Server()
@@ -61,5 +77,7 @@ struct Server {
             }
         }
     }
-
+    
 }
+
+

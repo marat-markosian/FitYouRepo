@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  FitYou
+
+  Created by Марат Маркосян on 15.08.2022.
+  
+*/
+
+//MARK: - MainVC
+
+"WOD_main" = "Workout of the Day";
+"exercises_main" = "Exercises";
+"workouts_main" = "Workouts";
+"addWorkout_main" = "Add Workout";
+"popularWorkouts_main" = "Popular Workouts";

@@ -9,9 +9,8 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
-class AddWorkoutVC: UIViewController {
+class AddWorkoutVC: CustomVC {
 
-    private lazy var cancel = UIButton()
     private lazy var nameTxt = CustomTxtField()
     private lazy var priorityChooser = UISegmentedControl(items: ["Task pr.", "Time pr."])
     private lazy var setsORtimeLbl = CustomLabel()
@@ -23,7 +22,7 @@ class AddWorkoutVC: UIViewController {
     private lazy var addBtn = UIButton()
     
     private var exercisesNumber = 1
-    
+            
     var exercises = ExercisesLibrary.instance.exercisesToAdd
     var repetitions = ExercisesLibrary.instance.repetitionsToAdd
     
@@ -31,6 +30,9 @@ class AddWorkoutVC: UIViewController {
 
     override func loadView() {
         super.loadView()
+        
+        ExercisesLibrary.instance.exercisesToAdd = []
+        ExercisesLibrary.instance.repetitionsToAdd = []
                 
         setUpSubviews()
         setUpAutoLayout()
@@ -54,22 +56,15 @@ class AddWorkoutVC: UIViewController {
     private func setUpSubviews() {
         view.backgroundColor = .white
         
-        view.addSubview(cancel)
         view.addSubview(nameTxt)
         view.addSubview(priorityChooser)
         view.addSubview(descriptionTxt)
         view.addSubview(addBtn)
         
-        cancel.translatesAutoresizingMaskIntoConstraints = false
         nameTxt.translatesAutoresizingMaskIntoConstraints = false
         priorityChooser.translatesAutoresizingMaskIntoConstraints = false
         addBtn.translatesAutoresizingMaskIntoConstraints = false
         descriptionTxt.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        cancel.setTitle("Cancel", for: .normal)
-        cancel.setTitleColor(.red, for: .normal)
-        cancel.addTarget(self, action: #selector(cancelTap), for: .touchUpInside)
         
         nameTxt.placeholder = "name"
         
@@ -132,11 +127,9 @@ class AddWorkoutVC: UIViewController {
     
     private func setUpAutoLayout() {
         NSLayoutConstraint.activate([
-            cancel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            cancel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 
-            nameTxt.topAnchor.constraint(equalTo: cancel.bottomAnchor, constant: 20),
-            nameTxt.leadingAnchor.constraint(equalTo: cancel.leadingAnchor),
+            nameTxt.topAnchor.constraint(equalTo: cancelBtn.bottomAnchor, constant: 20),
+            nameTxt.leadingAnchor.constraint(equalTo: cancelBtn.leadingAnchor),
             nameTxt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             nameTxt.heightAnchor.constraint(equalToConstant: 40),
 
@@ -188,23 +181,6 @@ class AddWorkoutVC: UIViewController {
         return true
     }
     
-    func showError(descr: String) {
-        let alert = UIAlertController(title: "Error", message: descr, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-        }
-        
-        alert.addAction(alertAction)
-        present(alert, animated: true)
-        
-    }
-    
-    @objc private func cancelTap() {
-        ExercisesLibrary.instance.repetitionsToAdd = []
-        ExercisesLibrary.instance.exercisesToAdd = []
-        
-        dismiss(animated: true)
-    }
-    
     @objc private func priorityChanged() {
         if priorityChooser.selectedSegmentIndex == 0 {
             setsORtimeLbl.text = "Sets:"
@@ -226,46 +202,53 @@ class AddWorkoutVC: UIViewController {
     
     @objc private func addWOD() {
         if checkItems() {
-            
-            var priority: String = ""
-            if priorityChooser.selectedSegmentIndex == 0 {
-                priority = "Task"
-            } else if priorityChooser.selectedSegmentIndex == 1 {
-                priority = "Time"
-            }
-            
-            var setsORtime: Float = 0
-            if setsORtimeTxt.text != "" {
-                setsORtime = Float(setsORtimeTxt.text!)!
-            }
-            let whoLiked: [String] = []
-            let whoAddedResultIDs: [String] = []
-            let names: [String] = []
-            let results: [Float] = []
-            
-            var ref: DocumentReference? = nil
-            ref = db.collection("WODs").addDocument(data: [
-                "name": nameTxt.text,
-                "priority": priority,
-                "setsORtime": setsORtime,
-                "exercises": exercises,
-                "repetitions": repetitions,
-                "creator": Server.instance.userID,
-                "whoLiked": whoLiked,
-                "whoAddedResultIDs": whoAddedResultIDs,
-                "names": names,
-                "results": results,
-                "description": descriptionTxt.text
-            ]) { err in
-                if let err = err {
-                    self.showError(descr: err.localizedDescription)
-                } else {
-                    print("Document added with ID: \(ref!.documentID)")
-                    self.dismiss(animated: true)
-                }
-            }
+            createWOD()
         } else {
             showError(descr: "Need to set all items")
+        }
+    }
+    
+}
+
+extension AddWorkoutVC: WODCreator {
+    
+    func createWOD() {
+        var priority: String = ""
+        if priorityChooser.selectedSegmentIndex == 0 {
+            priority = "Task"
+        } else if priorityChooser.selectedSegmentIndex == 1 {
+            priority = "Time"
+        }
+        
+        var setsORtime: Float = 0
+        if setsORtimeTxt.text != "" {
+            setsORtime = Float(setsORtimeTxt.text!)!
+        }
+        let whoLiked: [String] = []
+        let whoAddedResultIDs: [String] = []
+        let names: [String] = []
+        let results: [Float] = []
+        
+        var ref: DocumentReference? = nil
+        ref = db.collection("WODs").addDocument(data: [
+            "name": nameTxt.text,
+            "priority": priority,
+            "setsORtime": setsORtime,
+            "exercises": exercises,
+            "repetitions": repetitions,
+            "creator": Server.instance.userID,
+            "whoLiked": whoLiked,
+            "whoAddedResultIDs": whoAddedResultIDs,
+            "names": names,
+            "results": results,
+            "description": descriptionTxt.text
+        ]) { err in
+            if let err = err {
+                self.showError(descr: err.localizedDescription)
+            } else {
+                print("Document added with ID: \(ref!.documentID)")
+                self.dismiss(animated: true)
+            }
         }
     }
     
@@ -281,9 +264,7 @@ extension AddWorkoutVC: UITableViewDelegate {
             present(editor, animated: true)
 
         } else {
-
             showError(descr: "Sorry, you can`t edit")
-
         }
             
     }

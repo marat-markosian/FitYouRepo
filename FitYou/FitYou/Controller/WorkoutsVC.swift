@@ -9,10 +9,9 @@ import UIKit
 import FirebaseFirestore
 import FirebaseCore
 
-class WorkoutsVC: UIViewController {
+class WorkoutsVC: CustomVC {
     
     lazy var header = WODHeader()
-    private lazy var backBtn = UIButton()
     lazy var picker = UISegmentedControl(items: ["All", "Time pr.", "Task pr."])
     lazy var workoutsCollection = UICollectionView(frame: view.frame, collectionViewLayout: UICollectionViewFlowLayout())
     
@@ -25,21 +24,11 @@ class WorkoutsVC: UIViewController {
         
         view.backgroundColor = .white
 
+        cancelBtn.isHidden = true
         setUpSubviews()
         setUpAutoLayout()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        DispatchQueue.main.async {
-//            Server.instance.getWODs()
-//            self.wods = Server.instance.newwods
-//            self.docIDs = Server.instance.wodsID
-//            self.workoutsCollection.reloadData()
-//        }
-    }
-        
+            
     private func setUpSubviews() {
         view.addSubview(header)
         header.addSubview(backBtn)
@@ -51,19 +40,13 @@ class WorkoutsVC: UIViewController {
         view.addSubview(workoutsCollection)
         
         header.translatesAutoresizingMaskIntoConstraints = false
-        backBtn.translatesAutoresizingMaskIntoConstraints = false
         picker.translatesAutoresizingMaskIntoConstraints = false
         workoutsCollection.translatesAutoresizingMaskIntoConstraints = false
         
         header.hideName()
         header.hidePriority()
         header.changeWOD(to: "Workouts")
-        
-        backBtn.setBackgroundImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        backBtn.tintColor = .black
-        backBtn.contentMode = .scaleAspectFit
-        backBtn.addTarget(self, action: #selector(backAction), for: .touchUpInside)
-        
+                
         workoutsCollection.register(WorkoutCell.self, forCellWithReuseIdentifier: "Reuse")
         workoutsCollection.backgroundColor = .white
         workoutsCollection.showsVerticalScrollIndicator = false
@@ -101,10 +84,6 @@ class WorkoutsVC: UIViewController {
             header.heightAnchor.constraint(equalToConstant: 130).isActive = true
         }
 
-    }
-
-    @objc private func backAction() {
-        dismiss(animated: true)
     }
     
     @objc private func prioritySets(_ sender: UISegmentedControl) {

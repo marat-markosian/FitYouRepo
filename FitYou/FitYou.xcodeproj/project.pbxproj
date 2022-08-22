@@ -10,6 +10,8 @@
 		BA01433F2864BA6B00984CA5 /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01433E2864BA6B00984CA5 /* CustomHeader.swift */; };
 		BA0A622C286378BF0099A44F /* ExercisesLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A622B286378BF0099A44F /* ExercisesLibrary.swift */; };
 		BA0A622F2864962D0099A44F /* ExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A622E2864962D0099A44F /* ExercisesVC.swift */; };
+		BA26D91C28ABA4C400306205 /* CustomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA26D91B28ABA4C400306205 /* CustomVC.swift */; };
+		BA28400528AA9329007501C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BA28400728AA9329007501C0 /* Localizable.strings */; };
 		BA2F6BBA285253AF00754A7A /* MyWODsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2F6BB9285253AF00754A7A /* MyWODsVC.swift */; };
 		BA6B9C29283FE7E700E17A49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C28283FE7E700E17A49 /* AppDelegate.swift */; };
 		BA6B9C2B283FE7E700E17A49 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C2A283FE7E700E17A49 /* SceneDelegate.swift */; };
@@ -31,7 +33,6 @@
 		BA6B9C70284126FA00E17A49 /* WODView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C6F284126FA00E17A49 /* WODView.swift */; };
 		BA6B9C722841519900E17A49 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C712841519900E17A49 /* CustomLabel.swift */; };
 		BA6B9C742841615800E17A49 /* CustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C732841615800E17A49 /* CustomTableCell.swift */; };
-		BA6B9C76284219E800E17A49 /* WODModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C75284219E800E17A49 /* WODModel.swift */; };
 		BA6B9C7828421B9800E17A49 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9C7728421B9800E17A49 /* Server.swift */; };
 		BA8A66CE2848E52000248EEF /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A66CD2848E51F00248EEF /* ProfileVC.swift */; };
 		BA8BB1D028511E5600FD5268 /* LikedWODsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BB1CF28511E5600FD5268 /* LikedWODsVC.swift */; };
@@ -65,6 +66,10 @@
 		BA01433E2864BA6B00984CA5 /* CustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
 		BA0A622B286378BF0099A44F /* ExercisesLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesLibrary.swift; sourceTree = "<group>"; };
 		BA0A622E2864962D0099A44F /* ExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesVC.swift; sourceTree = "<group>"; };
+		BA26D91B28ABA4C400306205 /* CustomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVC.swift; sourceTree = "<group>"; };
+		BA28400628AA9329007501C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BA28400828AA9366007501C0 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		BA28400928AA9367007501C0 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BA2F6BB9285253AF00754A7A /* MyWODsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWODsVC.swift; sourceTree = "<group>"; };
 		BA6B9C25283FE7E700E17A49 /* FitYou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitYou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6B9C28283FE7E700E17A49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,7 +92,6 @@
 		BA6B9C6F284126FA00E17A49 /* WODView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WODView.swift; sourceTree = "<group>"; };
 		BA6B9C712841519900E17A49 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		BA6B9C732841615800E17A49 /* CustomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableCell.swift; sourceTree = "<group>"; };
-		BA6B9C75284219E800E17A49 /* WODModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WODModel.swift; sourceTree = "<group>"; };
 		BA6B9C7728421B9800E17A49 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		BA8A66CD2848E51F00248EEF /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		BA8BB1CF28511E5600FD5268 /* LikedWODsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedWODsVC.swift; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 				BA6B9C39283FE7EB00E17A49 /* Info.plist */,
 				BA6B9C5B283FE9A100E17A49 /* GoogleService-Info.plist */,
 				BA6B9C31283FE7E700E17A49 /* FitYou.xcdatamodeld */,
+				BA28400728AA9329007501C0 /* Localizable.strings */,
 			);
 			path = FitYou;
 			sourceTree = "<group>";
@@ -204,6 +209,7 @@
 				BA9168D1287485DA0094A7A7 /* ExerciseEditorVC.swift */,
 				BA8D1872287F046D0091A0DE /* PopularWODsVC.swift */,
 				BA91BD81289858A600B53F45 /* ResultsVC.swift */,
+				BA26D91B28ABA4C400306205 /* CustomVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -223,7 +229,6 @@
 		BA6B9C662840C33B00E17A49 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BA6B9C75284219E800E17A49 /* WODModel.swift */,
 				BA6B9C7728421B9800E17A49 /* Server.swift */,
 				BA0A622B286378BF0099A44F /* ExercisesLibrary.swift */,
 			);
@@ -333,6 +338,7 @@
 			knownRegions = (
 				en,
 				Base,
+				uk,
 			);
 			mainGroup = BA6B9C1C283FE7E700E17A49;
 			packageReferences = (
@@ -355,6 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA6B9C38283FE7EB00E17A49 /* LaunchScreen.storyboard in Resources */,
+				BA28400528AA9329007501C0 /* Localizable.strings in Resources */,
 				BA6B9C35283FE7EB00E17A49 /* Assets.xcassets in Resources */,
 				BA6B9C5C283FE9A100E17A49 /* GoogleService-Info.plist in Resources */,
 			);
@@ -383,7 +390,6 @@
 			files = (
 				BA8C65E12843D8D700446FFC /* LogInVC.swift in Sources */,
 				BA9168D2287485DB0094A7A7 /* ExerciseEditorVC.swift in Sources */,
-				BA6B9C76284219E800E17A49 /* WODModel.swift in Sources */,
 				BA6B9C6C2840E9B900E17A49 /* WorkoutsVC.swift in Sources */,
 				BA9087102872E7D800CD0AE4 /* AddWorkoutVC.swift in Sources */,
 				BA6B9C722841519900E17A49 /* CustomLabel.swift in Sources */,
@@ -402,6 +408,7 @@
 				BA6B9C2B283FE7E700E17A49 /* SceneDelegate.swift in Sources */,
 				BA6B9C33283FE7E700E17A49 /* FitYou.xcdatamodeld in Sources */,
 				BA8A66CE2848E52000248EEF /* ProfileVC.swift in Sources */,
+				BA26D91C28ABA4C400306205 /* CustomVC.swift in Sources */,
 				BA6B9C7828421B9800E17A49 /* Server.swift in Sources */,
 				BA8C65E32843DB2A00446FFC /* CustomTxtField.swift in Sources */,
 				BA0A622C286378BF0099A44F /* ExercisesLibrary.swift in Sources */,
@@ -443,10 +450,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		BA28400728AA9329007501C0 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA28400628AA9329007501C0 /* en */,
+				BA28400928AA9367007501C0 /* uk */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		BA6B9C36283FE7EB00E17A49 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BA6B9C37283FE7EB00E17A49 /* Base */,
+				BA28400828AA9366007501C0 /* uk */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -458,6 +475,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -504,7 +522,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -518,6 +536,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -558,7 +577,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

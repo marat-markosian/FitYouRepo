@@ -9,11 +9,10 @@ import UIKit
 import FirebaseAuth
 import CoreData
 
-class SignUpVC: UIViewController {
+class SignUpVC: CustomVC {
     
     private lazy var emailTxt = CustomTxtField()
     private lazy var passwordTxt = CustomTxtField()
-    private lazy var cancelBtn = UIButton()
     private lazy var signupBtn = UIButton()
     private lazy var genderSegment = UISegmentedControl(items: ["⚦", "♀"])
     private lazy var nameTxt = CustomTxtField()
@@ -31,22 +30,16 @@ class SignUpVC: UIViewController {
         
         view.addSubview(emailTxt)
         view.addSubview(passwordTxt)
-        view.addSubview(cancelBtn)
         view.addSubview(signupBtn)
         view.addSubview(genderSegment)
         view.addSubview(nameTxt)
         
         emailTxt.translatesAutoresizingMaskIntoConstraints = false
         passwordTxt.translatesAutoresizingMaskIntoConstraints = false
-        cancelBtn.translatesAutoresizingMaskIntoConstraints = false
         signupBtn.translatesAutoresizingMaskIntoConstraints = false
         genderSegment.translatesAutoresizingMaskIntoConstraints = false
         nameTxt.translatesAutoresizingMaskIntoConstraints = false
-        
-        cancelBtn.setTitleColor(.red, for: .normal)
-        cancelBtn.setTitle("Cancel", for: .normal)
-        cancelBtn.addTarget(self, action: #selector(cancel), for: .touchUpInside)
-        
+                
         signupBtn.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 25)
         signupBtn.setTitleColor(.black, for: .normal)
         signupBtn.setTitle("Sign Up", for: .normal)
@@ -66,10 +59,7 @@ class SignUpVC: UIViewController {
     }
     
     private func setUpAutoLayout() {
-        NSLayoutConstraint.activate([
-            cancelBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            cancelBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            
+        NSLayoutConstraint.activate([            
             emailTxt.topAnchor.constraint(equalTo: cancelBtn.bottomAnchor, constant: 30),
             emailTxt.leadingAnchor.constraint(equalTo: cancelBtn.leadingAnchor),
             emailTxt.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
@@ -97,37 +87,17 @@ class SignUpVC: UIViewController {
 
     }
     
-    func signup(email: String, password: String, name: String, gender: String) {
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if let result = authResult {
-                print(result.user.uid)
-                let changeReq = Auth.auth().currentUser?.createProfileChangeRequest()
-                changeReq?.displayName = name
-                changeReq?.commitChanges() { error in
-                    self.showError(descr: error?.localizedDescription ?? "Name was not saved")
-                }
-                self.saveGender(gender: gender)
-                self.dismiss(animated: true)
-            } else if let error = error {
-                self.showError(descr: error.localizedDescription)
-                print(error)
-            }
+    @objc func segmentChanged() {
+        if genderSegment.selectedSegmentIndex == 0 {
+            genderSegment.selectedSegmentTintColor = .blue
+        } else {
+            genderSegment.selectedSegmentTintColor = .systemPink
         }
     }
 
-    func showError(descr: String) {
-        let alert = UIAlertController(title: "Error", message: descr, preferredStyle: .alert)
-        
-        let alertAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-            
-        }
-        
-        alert.addAction(alertAction)
-        
-        present(alert, animated: true)
-        
-    }
-    
+}
+
+extension SignUpVC: SaveCoreDataOperator {
     func saveGender(gender: String) {
       
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -144,7 +114,28 @@ class SignUpVC: UIViewController {
         } catch let error as NSError {
             showError(descr: error.localizedDescription)
         }
+    }
+}
+
+extension SignUpVC: SignUpOperator {
+    
+    func signUpToServer(email: String, password: String, name: String, gender: String) {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let result = authResult {
+                
+                let changeReq = Auth.auth().currentUser?.createProfileChangeRequest()
+                changeReq?.displayName = name
+                changeReq?.commitChanges() { error in
+                    self.showError(descr: error?.localizedDescription ?? "Name was not saved")
+                }
+                
+                self.saveGender(gender: gender)
+                self.dismiss(animated: true)
+            } else if let error = error {
+                self.showError(descr: error.localizedDescription)
+            }
         }
+    }
     
     @objc func signUp() {
         
@@ -152,13 +143,13 @@ class SignUpVC: UIViewController {
             let genderNum = genderSegment.selectedSegmentIndex
             if genderNum == 0 {
                 if password.count > 8 {
-                    signup(email: email, password: password, name: name, gender: "Male")
+                    signUpToServer(email: email, password: password, name: name, gender: "Male")
                 } else {
                     showError(descr: "Password should contain more then 8 characters")
                 }
             } else if genderNum == 1 {
                 if password.count > 8 {
-                    signup(email: email, password: password, name: name, gender: "Female")
+                    signUpToServer(email: email, password: password, name: name, gender: "Female")
                 } else {
                     showError(descr: "Password should contain more then 8 characters")
                 }
@@ -167,16 +158,4 @@ class SignUpVC: UIViewController {
         
     }
     
-    @objc func cancel() {
-        dismiss(animated: true)
-    }
-    
-    @objc func segmentChanged() {
-        if genderSegment.selectedSegmentIndex == 0 {
-            genderSegment.selectedSegmentTintColor = .blue
-        } else {
-            genderSegment.selectedSegmentTintColor = .systemPink
-        }
-    }
-
 }

@@ -10,10 +10,9 @@ import FirebaseFirestore
 import Firebase
 import FirebaseAuth
 
-class WODView: UIViewController {
+class WODView: CustomVC {
     
     private lazy var header = WODHeader()
-    private lazy var backBtn = UIButton()
     private lazy var likeBtn = UIButton()
     private var setsAndTime: CustomLabel {
         let label = CustomLabel()
@@ -57,6 +56,8 @@ class WODView: UIViewController {
         
         isfirstTap = true
         
+        cancelBtn.isHidden = true
+        
         setUpSubviews()
         setUpStacks()
         setUpAutoLayout()
@@ -80,54 +81,6 @@ class WODView: UIViewController {
                 addResultBtn.setTitle("Your result - \(result)", for: .normal)
             }
         }
-
-//        if usersIDWhoAddedResult.count > 0 {
-//            switch usersIDWhoAddedResult.count {
-//            case 1:
-//                let indexOfMaxResult = results.firstIndex(of: results.max()!)
-//                first.text = "1. \(usersNames[indexOfMaxResult!]) - \(results.max()!)"
-//            case 2:
-//                if results[0] > results[1] {
-//                    first.text = "1. \(usersNames[0]) - \(results[0])"
-//                    second.text = "2. \(usersNames[1]) - \(results[1])"
-//                } else {
-//                    first.text = "1. \(usersNames[1]) - \(results[1])"
-//                    second.text = "2. \(usersNames[0]) - \(results[0])"
-//                }
-//            default:
-//                var firstPosition = 0.0
-//                var secondPosition = 0.0
-//                var thirdPosition = 0.0
-//                var firstNum = 0.0
-//                var secondNum = 0.0
-//                var thirdNum = 0.0
-//                for index in 0 ..< results.count {
-//                    if results[index] > firstNum {
-//                        thirdNum = secondNum
-//                        secondNum = firstNum
-//                        firstNum = results[index]
-//
-//                        firstPosition = index
-//                        secondPosition = results.firstIndex(of: secondNum) ?? 0
-//                        thirdPosition = results.firstIndex(of: thirdNum) ?? 0
-//                    } else if results[index] > secondNum {
-//                        thirdNum = secondNum
-//                        secondNum = results[index]
-//
-//                        secondPosition = results.firstIndex(of: secondNum) ?? 0
-//                        thirdPosition = results.firstIndex(of: thirdNum) ?? 0
-//                    } else if results[index] > thirdNum {
-//                        thirdNum = results[index]
-//
-//                        thirdPosition = results.firstIndex(of: thirdNum) ?? 0
-//                    }
-//
-//                }
-//                first.text = "1. \(usersNames[firstPosition]) - \(results[firstPosition])"
-//                second.text = "2. \(usersNames[secondPosition]) - \(results[secondPosition])"
-//                third.text = "3. \(usersNames[thirdPosition]) - \(results[thirdPosition])"
-//            }
-//        }
         
     }
     
@@ -139,21 +92,16 @@ class WODView: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(header)
-        header.addSubview(backBtn)
         header.addSubview(likeBtn)
+        header.addSubview(backBtn)
         view.addSubview(descriptionText)
         view.addSubview(resultsBtn)
         
         header.translatesAutoresizingMaskIntoConstraints = false
-        backBtn.translatesAutoresizingMaskIntoConstraints = false
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
         resultsBtn.translatesAutoresizingMaskIntoConstraints = false
         descriptionText.translatesAutoresizingMaskIntoConstraints = false
         
-        backBtn.setBackgroundImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        backBtn.tintColor = .black
-        backBtn.addTarget(self, action: #selector(backAction), for: .touchUpInside)
-
         isLiked()
         likeBtn.tintColor = .red
         likeBtn.contentMode = .scaleAspectFit
@@ -331,21 +279,7 @@ class WODView: UIViewController {
             }
         }
     }
-    
-    func showError(descr: String) {
-        let alert = UIAlertController(title: "Error", message: descr, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-        }
         
-        alert.addAction(alertAction)
-        present(alert, animated: true)
-        
-    }
-
-    @objc private func backAction() {
-        dismiss(animated: true)
-    }
-    
     @objc private func showResults() {
         let resultsVC = ResultsVC()
         resultsVC.results = results
